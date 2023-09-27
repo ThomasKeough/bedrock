@@ -8,6 +8,8 @@ public class ExampleCall {
     private static final String API_URL = "https://pokemontcg.io/";
     private static final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7"; // use env variable?
 
+    // add intializer
+
     public static String getApiToken() {return API_TOKEN;} // API_TOKEN getter method
 
     public String[] getCard(String cardID) { // minimal example, return a String array of name, type, attacks?
@@ -21,6 +23,5 @@ public class ExampleCall {
     }
     public static void main(String[] args) {
         String venusaurEX = "xy1-1";
-
     }
 }
