@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ExampleCall {
     private static final String API_URL = "https://api.pokemontcg.io/";
-    private static final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7"; // Replace with your API token
+    private static final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
 
     public static String getApiToken() {
         return API_TOKEN;
@@ -24,6 +24,7 @@ public class ExampleCall {
             if (!response.isSuccessful()) {
                 throw new RuntimeException("API request failed: Code " + response.code());
             }
+            System.out.println("HTTP Status Code: " + response.code());
             JSONObject responseBody = new JSONObject(response.body().string());
             JSONObject card = responseBody.getJSONObject("data");
             return card.getString("name");
