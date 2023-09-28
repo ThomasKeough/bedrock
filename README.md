@@ -2,6 +2,13 @@
 *week3project submission*
 
 # Problem Domain
+Our team's idea for this project will be inspired by the Pokémon Trading Card Game. The API we are currently using 
+returns a list of Pokémon cards and their statistics. Even though implementing a simple version of Pokémon would be the 
+natural course of action, we think that given the original characters from the Pokémon franchise, implementing some new 
+gameplay features such as challenges would be interesting. For example, adding certain gimmicks such as starting with a 
+smaller amount of health during fights could be something fun to try out. 
+
+Overall, this project could serve as a potential modification to Pokémon's core gameplay mechanics.
 
 # Our Application
 We would like to design an application that will allow us to play the Pokémon trading card game. This means that we will
