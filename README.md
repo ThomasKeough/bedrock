@@ -48,8 +48,16 @@ REST API that uses the standard HTTP codes for queries. When queried, it will re
 
 ## Link to Documentation &rarr; [PokémonTCG](https://docs.pokemontcg.io)
 
-## Testing the API (Screenshot)
+## Using External Tools to try the API
+Using Hoppscotch, we get the following 
+![hoppscotchcall.jpg](images/hoppscotchcall.jpg)
 
-## Example Output
+Alternatively, clicking this [link](https://api.pokemontcg.io/v2/cards) returns the following. This JSON has been 
+formatted using the JSON Formatter extension on Google Chrome.
+![sample_json.png](images/sample_json.jpg)
+
+
+## Example Java Output
+![java_sample_call.jpg](images/java_sample_call.jpg)
 
 # Technical Problems
