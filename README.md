@@ -65,3 +65,4 @@ The output demonstrates the expected result and the actual result. In this case,
 card associated with the card ID 'xy1-1', which is 'Venusaur-EX'.
 
 # Technical Problems
+Thus far, we have not run into any significant technical problems or issues.
