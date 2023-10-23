@@ -60,4 +60,9 @@ formatted using the JSON Formatter extension on Google Chrome.
 ## Example Java Output
 ![java_sample_call.jpg](images/java_sample_call.jpg)
 
+Our example Java code showcases an API request to fetch the name of a Pokémon card by specifying its unique card ID.
+The output demonstrates the expected result and the actual result. In this case, our code fetched the name of the Pokémon 
+card associated with the card ID 'xy1-1', which is 'Venusaur-EX'.
+
 # Technical Problems
+Thus far, we have not run into any significant technical problems or issues.
