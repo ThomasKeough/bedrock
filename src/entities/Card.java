@@ -1,4 +1,10 @@
 package entities;
 
-public class Card {
+public interface Card {
+    String getName();
+
+    String getId();
+
+    Integer getHP();
+
 }
