@@ -4,6 +4,9 @@ import java.util.ArrayList;
 public interface Deck {
     ArrayList<Card> getCardsInDeck();
 
-    int getDeckId();
+//    int getDeckId();
 
+    Integer numPokemonAlive();
+
+    Card getActivePokemon();
 }

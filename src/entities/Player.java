@@ -8,7 +8,7 @@ public interface Player {
     Deck getCurrentDeck();
 
     // returns a list of all the cards in the player's collection
-    ArrayList<Card> getCollection();
+    Collection getCollection();
 
     // returns a mapping of decks that the user has
     HashMap<String, Deck> getDecks();

@@ -14,6 +14,6 @@ public interface Card {
 
     String getCardArt();
 
-
+    Type getType();
 
 }
