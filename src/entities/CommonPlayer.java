@@ -19,21 +19,21 @@ public class CommonPlayer implements Player {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public Deck getCurrentDeck() {
-        return null;
+        return this.currentDeck;
     }
 
     @Override
     public Collection getCollection() {
-        return null;
+        return this.collection;
     }
 
     @Override
     public HashMap<String, Deck> getDecks() {
-        return null;
+        return this.playerDecks;
     }
 }
