@@ -10,10 +10,12 @@ public interface Card {
 
     Integer getHP();
 
+    Type getType();
+
     HashMap<String, Integer> getAttacks();
 
-    String getCardArt();
+    String getRarity();
 
-    Type getType();
+    String getCardArt();
 
 }
