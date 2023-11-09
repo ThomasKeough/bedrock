@@ -4,7 +4,7 @@ import entities.Card;
 
 public interface AddToCollectionOutputBoundary {
 
-    void prepareSuccessView(Card card);
+    void prepareSuccessView(AddToCollectionOutputData outputData);
 
     void prepareFailView(String error);
 }

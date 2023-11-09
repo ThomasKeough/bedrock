@@ -4,8 +4,8 @@ import entities.Card;
 import entities.Collection;
 
 public class AddToCollectionInputData {
-    Card card;
-    Collection collection;
+    private final Card card;
+    private final Collection collection;
 
     AddToCollectionInputData(Card card, Collection collection) {
         this.card = card;
