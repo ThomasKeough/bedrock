@@ -51,7 +51,7 @@ public class CommonCard implements Card {
 
     @Override
     public String getRarity() {
-        return null;
+        return rarity;
     }
 
     @Override
