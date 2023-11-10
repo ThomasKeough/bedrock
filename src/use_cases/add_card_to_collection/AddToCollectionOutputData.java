@@ -5,7 +5,7 @@ import entities.Card;
 public class AddToCollectionOutputData {
     private final Card card;
 
-    AddToCollectionOutputData(Card card) {
+    public AddToCollectionOutputData(Card card) {
         this.card = card;
     }
 
