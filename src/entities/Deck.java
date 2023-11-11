@@ -2,7 +2,7 @@ package entities;
 import java.util.ArrayList;
 
 public interface Deck {
-    ArrayList<Card> getCardsInDeck();
+    ArrayList<Card> getCards();
 
 //    int getDeckId();
 
