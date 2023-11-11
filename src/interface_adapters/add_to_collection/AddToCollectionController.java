@@ -1,4 +1,4 @@
-package interface_adapters;
+package interface_adapters.add_to_collection;
 
 import entities.Card;
 import entities.Collection;
