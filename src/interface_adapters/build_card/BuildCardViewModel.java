@@ -1,2 +1,4 @@
-package interface_adapters.build_card;public class BuildCardViewModel {
+package interface_adapters.build_card;
+
+public class BuildCardViewModel {
 }

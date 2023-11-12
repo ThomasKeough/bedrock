@@ -18,4 +18,8 @@ public class CommonCollection implements Collection {
     public Integer getLimit() {
         return limit;
     }
+
+    public Boolean atLimit() {
+        return cards.size() <= limit;
+    }
 }

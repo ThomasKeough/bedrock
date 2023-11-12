@@ -1,2 +1,4 @@
-package interface_adapters.build_card;public class BuildCardPresenter {
+package interface_adapters.build_card;
+
+public class BuildCardPresenter {
 }

@@ -1,2 +1,4 @@
-package interface_adapters.build_deck;public class BuildDeckController {
+package interface_adapters.build_deck;
+
+public class BuildDeckController {
 }
