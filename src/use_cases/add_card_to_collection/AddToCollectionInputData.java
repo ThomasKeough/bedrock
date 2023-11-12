@@ -7,7 +7,7 @@ public class AddToCollectionInputData {
     private final Card card;
     private final Collection collection;
 
-    AddToCollectionInputData(Card card, Collection collection) {
+    public AddToCollectionInputData(Card card, Collection collection) {
         this.card = card;
         this.collection = collection;
     }
