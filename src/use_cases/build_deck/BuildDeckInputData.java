@@ -6,9 +6,11 @@ import entities.Player;
 public class BuildDeckInputData {
     private Deck deck;
     private Player player;
+    private String name;
 
-    public BuildDeckInputData(Deck deck, Player player) {
+    public BuildDeckInputData(Deck deck, String name, Player player) {
         this.deck = deck;
+        this.name = name;
         this.player = player;
     }
 
@@ -18,5 +20,9 @@ public class BuildDeckInputData {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public String getName() {
+        return name;
     }
 }

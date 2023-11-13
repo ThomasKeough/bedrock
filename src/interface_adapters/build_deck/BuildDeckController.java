@@ -14,9 +14,9 @@ public class BuildDeckController {
         this.buildDeckUseCaseInteractor = buildDeckUseCaseInteractor;
     }
 
-    public void execute(Player player, Card one, Card two, Card three, Card four, Card five, Card six) {
+    public void execute(Player player, String name, Card one, Card two, Card three, Card four, Card five, Card six) {
         Deck deck = new CommonDeck(one, two, three, four, five, six);
-        BuildDeckInputData buildDeckInputData = new BuildDeckInputData(deck, player);
+        BuildDeckInputData buildDeckInputData = new BuildDeckInputData(deck, name, player);
         buildDeckUseCaseInteractor.execute(buildDeckInputData);
     }
 }
