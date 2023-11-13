@@ -1,5 +1,14 @@
 package use_cases.build_deck;
 
-public class BuildDeckInputData {
+import entities.Deck;
+import entities.Player;
 
+public class BuildDeckInputData {
+    private Deck deck;
+    private Player player;
+
+    public BuildDeckInputData(Deck deck, Player player) {
+        this.deck = deck;
+        this.player = player;
+    }
 }
