@@ -11,4 +11,12 @@ public class BuildDeckInputData {
         this.deck = deck;
         this.player = player;
     }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }
