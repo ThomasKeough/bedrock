@@ -2,7 +2,7 @@ package data;
 
 import entities.Card;
 import entities.CardFactory;
-import use_cases.build_deck.CardDataAccessInterface;
+import use_cases.build_deck.BuildDeckDataAccessInterface;
 
 import java.io.*;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 // reads cards from the collection (stored in a csv file)
-public class CardDAO implements CardDataAccessInterface {
+public class CardDAO implements BuildDeckDataAccessInterface {
 
     private final File csvFile;
 
