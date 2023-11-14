@@ -10,14 +10,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-// reads cards from the collection (stored in a csv file)
+// reads cards from the use_cases.collection (stored in a csv file)
 public class CardDAO implements CardDataAccessInterface{
 
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, Card> cards = new HashMap<>(); // mapping of the pokemon's id to the pokemon itself (this is in the user's collection)
+    private final Map<String, Card> cards = new HashMap<>(); // mapping of the pokemon's id to the pokemon itself (this is in the user's use_cases.collection)
 
     private CardFactory cardFactory;
 
