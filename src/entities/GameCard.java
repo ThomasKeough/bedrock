@@ -43,7 +43,7 @@ public class GameCard implements GamePokemon {
     }
 
     public boolean isOnField() {
-        return isOnField();
+        return onField;
     }
 
     public void faint() {
