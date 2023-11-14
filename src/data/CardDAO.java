@@ -63,8 +63,7 @@ public class CardDAO implements CardDataAccessInterface{
             writer.newLine();
 
             for (Card card : cards.values()) {
-                String line = "%s,%s".formatted(
-                        card.getId(), card.getName());
+                String line = String.format("%s,%s", card.getId(), card.getName());
                 writer.write(line);
                 writer.newLine();
             }
