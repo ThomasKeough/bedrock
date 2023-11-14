@@ -12,6 +12,8 @@ public interface GamePokemon {
 
     public boolean hasFainted();
 
+    public boolean isOnField();
+
     public void faint();
 
     public void takeDamage(Integer damage);

@@ -8,6 +8,7 @@ public class GameCard implements GamePokemon {
     private Integer hp;
     private final HashMap<String, Integer> attack;
     private boolean fainted;
+    private boolean onField;
 
     public GameCard(Card card) {
         this.name = card.getName();
@@ -15,6 +16,7 @@ public class GameCard implements GamePokemon {
         this.hp = card.getHP();
         this.attack = card.getAttacks();
         this.fainted = false;
+        this.onField = false;
     }
 
     public String getName() {
@@ -38,6 +40,10 @@ public class GameCard implements GamePokemon {
 
     public boolean hasFainted() {
         return fainted;
+    }
+
+    public boolean isOnField() {
+        return isOnField();
     }
 
     public void faint() {
