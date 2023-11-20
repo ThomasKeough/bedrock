@@ -13,4 +13,5 @@ public interface Player {
     // returns a mapping of decks that the user has
     HashMap<String, Deck> getDecks();
 
+    void addDeck(String name, Deck deck);
 }
