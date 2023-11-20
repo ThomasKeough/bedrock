@@ -64,7 +64,11 @@ public class CommonCardFactory implements CardFactory {
         HashMap<String, Integer> attacks = new HashMap<>();
         JSONArray attacksObj = card.getJSONArray("attacks");
         for (int i = 0; i < attacksObj.length(); i++) {
-            attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(attacksObj.getJSONObject(i).getString("damage")));
+            String damage = attacksObj.getJSONObject(i).getString("damage");
+            damage = damage.replace("×", "");
+            damage = damage.replace("+", "");
+            damage = damage.replace("-", "");
+            attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
         }
 
         boolean isSpecial = false;

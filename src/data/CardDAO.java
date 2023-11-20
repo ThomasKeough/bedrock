@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 // reads cards from the collection (stored in a csv file)
-public class CardDAO implements CardDataAccessInterface, BuildDeckDataAccessInterface {
+public class CardDAO implements BuildDeckDataAccessInterface {
 
     private final File csvFile;
 
