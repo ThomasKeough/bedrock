@@ -47,6 +47,8 @@ public class AttackInteractor implements AttackInputBoundary {
 
         }
 
+        private Integer findDamage()
+
 
 
 
