@@ -48,6 +48,8 @@ public class Main {
         viewManagerModel.firePropertyChanged();
 
         application.pack();
+        application.setSize(600, 600);
+        application.setLocationRelativeTo(null);
         application.setVisible(true);
     }
 }
