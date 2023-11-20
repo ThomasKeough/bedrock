@@ -7,8 +7,19 @@ public class CommonDeck extends CommonCollection implements Deck {
     private ArrayList<Card> cards;
 
     public CommonDeck(ArrayList<Card> cards) {
-        super(cards);
-        this.limit = 6;
+        super(cards, 6);
+    }
+
+    public CommonDeck(Card one, Card two, Card three, Card four, Card five, Card six) {
+        super(null, 6);
+        ArrayList<Card> cards = new ArrayList<Card>();
+            this.cards.add(one);
+            this.cards.add(two);
+            this.cards.add(three);
+            this.cards.add(four);
+            this.cards.add(five);
+            this.cards.add(six);
+        this.cards = cards;
     }
 
     @Override

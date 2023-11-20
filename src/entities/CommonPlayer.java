@@ -36,4 +36,9 @@ public class CommonPlayer implements Player {
     public HashMap<String, Deck> getDecks() {
         return this.playerDecks;
     }
+
+    @Override
+    public void addDeck(String name, Deck deck) {
+        this.playerDecks.put(name, deck);
+    }
 }
