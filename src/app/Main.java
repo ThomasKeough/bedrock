@@ -42,6 +42,10 @@ public class Main {
         }
 
         MainView mainView = new MainView(mainViewModel);
+        views.add(mainView, mainView.viewName);
+
+        viewManagerModel.setActiveView(mainView.viewName);
+        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
