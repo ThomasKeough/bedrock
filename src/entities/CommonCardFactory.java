@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CommonCardFactory implements CardFactory {
 
@@ -65,10 +66,16 @@ public class CommonCardFactory implements CardFactory {
         JSONArray attacksObj = card.getJSONArray("attacks");
         for (int i = 0; i < attacksObj.length(); i++) {
             String damage = attacksObj.getJSONObject(i).getString("damage");
-            damage = damage.replace("×", "");
-            damage = damage.replace("+", "");
-            damage = damage.replace("-", "");
-            attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
+            if (!Objects.equals(damage, "")) {
+                damage = damage.replace("×", "");
+                damage = damage.replace("+", "");
+                damage = damage.replace("-", "");
+                attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
+            }
+            else {
+                attacks.put(attacksObj.getJSONObject(i).getString("name"), 0);
+            }
+
         }
 
         boolean isSpecial = false;
