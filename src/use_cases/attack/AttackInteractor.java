@@ -18,7 +18,7 @@ public class AttackInteractor implements AttackInputBoundary {
 
         if (defenderWeaknesses.containsKey(attackerType)) {
             // apply positive multiplier and take damage
-            Integer boostedAttack =
+            // need a way to key into attack hash map
             // attack succeeds
         }
         else if (defenderResistances.containsKey(attackerType)) {
