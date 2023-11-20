@@ -2,13 +2,11 @@ package app;
 
 import data.CardDAO;
 import entities.CommonCardFactory;
-import interface_adapters.MainViewModel;
-import interface_adapters.ViewManagerModel;
+import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
 //import interface_adapters.build_deck.BuildDeckViewModel;
-import view.MainView;
-import view.ViewManager;
+import view.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,9 +28,10 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         MainViewModel mainViewModel = new MainViewModel();
-//        AddToCollectionViewModel addToCollectionViewModel = new AddToCollectionViewModel();
-//        BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
-//        BuildCardViewModel buildCardViewModel = new BuildCardViewModel();
+        HubViewModel hubViewModel = new HubViewModel();
+        PlayViewModel playView = new PlayViewModel();
+        CollectionViewModel collectionViewModel = new CollectionViewModel();
+        DecksViewModel decksViewModel = new DecksViewModel();
 
         CardDAO userDataAccessObject;
         try {
@@ -41,8 +40,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        MainView mainView = new MainView(mainViewModel);
+        MainView mainView = new MainView(mainViewModel, viewManagerModel);
         views.add(mainView, mainView.viewName);
+
+        HubView hubView = new HubView(hubViewModel, viewManagerModel);
+        views.add(hubView, hubView.viewName);
+
+
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();

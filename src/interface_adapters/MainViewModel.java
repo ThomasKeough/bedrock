@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 public class MainViewModel extends ViewModel {
     public final String TITLE_LABEL = "Main Menu View";
-    public static final String START_BUTTON_LABEL = "Start";
+    public final String START_BUTTON_LABEL = "Start";
     public MainViewModel() {
         super("main menu");
     }

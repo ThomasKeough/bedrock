@@ -4,10 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class HubViewModel extends ViewModel{
-    public final String TITLE_LABEL = "Main Menu View";
-    public static final String PLAY_BUTTON_LABEL = "Play";
-    public static final String COLLECTION_BUTTON_LABEL = "Collection";
-    public static final String DECK_BUTTON_LABEL = "Deck";
+    public final String TITLE_LABEL = "Hub Menu View";
+    public final String PLAY_BUTTON_LABEL = "Play";
+    public final String COLLECTION_BUTTON_LABEL = "Collection";
+    public final String DECKS_BUTTON_LABEL = "Decks";
     public HubViewModel() {
         super("hub menu");
     }

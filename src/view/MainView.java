@@ -1,6 +1,8 @@
 package view;
 
+import interface_adapters.HubViewModel;
 import interface_adapters.MainViewModel;
+import interface_adapters.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,16 +14,18 @@ import static view.ImageResizer.resizeIcon;
 public class MainView extends JPanel {
     public final String viewName = "Main Menu";
     private final MainViewModel mainViewModel;
+    private ViewManagerModel viewManagerModel;
     final JButton start;
 
-    public MainView(MainViewModel mainViewModel) {
+    public MainView(MainViewModel mainViewModel, ViewManagerModel viewManagerModel) {
         this.mainViewModel = mainViewModel;
+        this.viewManagerModel = viewManagerModel;
 
         JLabel title = new JLabel("Pokemon");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
-        start = new JButton(MainViewModel.START_BUTTON_LABEL);
+        start = new JButton(mainViewModel.START_BUTTON_LABEL);
         buttons.add(start);
 
         try {
@@ -39,8 +43,10 @@ public class MainView extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(start)) { // start button is clicked
-                            System.out.println("Button Pushed");
+                        if (e.getSource().equals(start)) {
+                            // Set activeView to HubView
+                            viewManagerModel.setActiveView("Hub Menu");
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
