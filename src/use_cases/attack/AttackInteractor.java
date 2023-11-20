@@ -22,18 +22,24 @@ public class AttackInteractor implements AttackInputBoundary {
         HashMap<String, Integer> defenderWeaknesses = defender.getType().getWeaknesses();
         HashMap<String, Integer> defenderResistances = defender.getType().getResistances();
 
-        // find damage value
-        Integer damage = getDamageValue(attack);
+        try {
+            // find damage value
+            Integer damage = getDamageValue(attack);
 
-        // boost the damage value in accordance with weaknesses
-        Integer multipliedDamage = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
+            // boost the damage value in accordance with weaknesses
+            Integer multipliedDamage = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
 
-        // defender takes mulitplied damage
-        defender.takeDamage(multipliedDamage);
+            // defender takes mulitplied damage
+            defender.takeDamage(multipliedDamage);
 
-        // attack succeeds
-        AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
-        attackPresenter.prepareSuccessView(attackOutputData);
+            // attack succeeds
+            AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
+            attackPresenter.prepareSuccessView(attackOutputData);
+        }
+        catch (Exception e) {
+            attackPresenter.prepareFailView(new AttackOutputData("The attack could not be completed."))
+        }
+
 
     }
     private Integer getDamageValue(HashMap<String, Integer> attack) {
