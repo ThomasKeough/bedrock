@@ -9,7 +9,11 @@ import java.util.Set;
 
 public class AttackInteractor implements AttackInputBoundary {
 
-    private final AttackOutputBoundary attackPresesnter;
+    private final AttackOutputBoundary attackPresenter;
+
+    public AttackInteractor(AttackOutputBoundary attackPresenter) {
+        this.attackPresenter = attackPresenter;
+    }
     public void execute(AttackInputData attackInputData) {
         HashMap<String, Integer> attack = attackInputData.getAttack();
         String attackerType = attackInputData.getAttackerType().getOverallType();
@@ -20,11 +24,8 @@ public class AttackInteractor implements AttackInputBoundary {
 
         if (defenderWeaknesses.containsKey(attackerType)) {
             // find damage
-            Set<String> keys = attack.keySet();
-            Integer damage;
-            for (String key : keys) {
-                damage = attack.get(key);
-            }
+
+            Integer damage = getDamageValue(attack);
             // apply positive multiplier: should be float, not integer
             Integer multiplier = defenderWeaknesses.get(attackerType);
             damage = damage * multiplier;
@@ -34,7 +35,7 @@ public class AttackInteractor implements AttackInputBoundary {
 
             // attack succeeds
             AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
-            attackPresesnter.prepareSuccessView(attackOutputData);
+            attackPresenter.prepareSuccessView(attackOutputData);
 
         }
         else if (defenderResistances.containsKey(attackerType)) {
@@ -46,11 +47,17 @@ public class AttackInteractor implements AttackInputBoundary {
             // attack succeeds
 
         }
+    }
+    private Integer getDamageValue(HashMap<String, Integer> attack) {
+        // finds the attack damage value from the attack.
+        // this function is needed because attacks are stored as hashmaps,
+        // AttackInteractor never learns the key (name) of the attack.
 
-        private Integer findDamage()
-
-
-
-
+        Set<String> keys = attack.keySet();
+        Integer damage;
+        for (String key : keys) {
+            damage = attack.get(key);
+        }
+        return damage;
     }
 }
