@@ -55,7 +55,24 @@ public class CommonCardFactory implements CardFactory {
             HashMap<String, Integer> attacks = new HashMap<>();
             JSONArray attacksObj = card.getJSONArray("attacks");
             for (int i = 0; i < attacksObj.length(); i++) {
-                attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(attacksObj.getJSONObject(i).getString("damage")));
+
+                int damage;
+                String damageRaw = attacksObj.getJSONObject(i).getString("damage");
+                // our implementation will only take the numbers in the API for the damage values
+                // ""
+                // "__"
+                // "___" where __ represents a number
+                if (damageRaw.isEmpty()) { // ""
+                    damage = 0;
+                } else if (damageRaw.length() == 2) { // "20"
+                    damage = Integer.parseInt(damageRaw);
+                } else if (damageRaw.length() == 3 && Character.isDigit(damageRaw.charAt(2)) ) { // "220"
+                    damage = Integer.parseInt(damageRaw);
+                } else { // "20+"
+                    damage = Integer.parseInt(damageRaw.substring(0, 2));
+                }
+
+                attacks.put(attacksObj.getJSONObject(i).getString("name"), damage);
             }
 
 
