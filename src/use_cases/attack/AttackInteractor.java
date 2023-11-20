@@ -37,7 +37,7 @@ public class AttackInteractor implements AttackInputBoundary {
             attackPresenter.prepareSuccessView(attackOutputData);
         }
         catch (Exception e) {
-            attackPresenter.prepareFailView(new AttackOutputData("The attack could not be completed."))
+            attackPresenter.prepareFailView(new AttackOutputData("The attack could not be completed."));
         }
 
 
