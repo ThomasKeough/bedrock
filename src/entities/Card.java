@@ -10,11 +10,13 @@ public interface Card {
 
     Integer getHP();
 
+    Boolean isHighHp();
+
     Type getType();
 
     HashMap<String, Integer> getAttacks();
 
-    String getRarity();
+    Boolean isSpecial();
 
     String getCardArt();
 

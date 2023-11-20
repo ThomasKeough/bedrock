@@ -7,7 +7,7 @@ public interface Player {
 
     Deck getCurrentDeck();
 
-    // returns a list of all the cards in the player's collection
+    // returns a list of all the cards in the player's use_cases.collection
     Collection getCollection();
 
     // returns a mapping of decks that the user has
