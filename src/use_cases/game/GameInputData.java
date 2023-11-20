@@ -3,16 +3,16 @@ package use_cases.game;
 import entities.Player;
 
 public class GameInputData {
-    final private Player player_one;
-    final private Player player_two;
+    final private Player playerOne;
+    final private Player playerTwo;
 
 
     public GameInputData(Player playerOne, Player playerTwo) {
-        player_one = playerOne;
-        player_two = playerTwo;
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
     }
 
-    Player getPlayer_one() { return this.player_one; }
+    Player getPlayerOne() { return this.playerOne; }
 
-    Player getPlayer_two() { return this.player_two; }
+    Player getPlayerTwo() { return this.playerTwo; }
 }
