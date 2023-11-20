@@ -22,31 +22,19 @@ public class AttackInteractor implements AttackInputBoundary {
         HashMap<String, Integer> defenderWeaknesses = defender.getType().getWeaknesses();
         HashMap<String, Integer> defenderResistances = defender.getType().getResistances();
 
-        if (defenderWeaknesses.containsKey(attackerType)) {
-            // find damage
+        // find damage value
+        Integer damage = getDamageValue(attack);
 
-            Integer damage = getDamageValue(attack);
-            // apply positive multiplier: should be float, not integer
-            Integer multiplier = defenderWeaknesses.get(attackerType);
-            damage = damage * multiplier;
+        // boost the damage value in accordance with weaknesses
+        Integer multipliedDamage = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
 
-            // take damage
-            defender.takeDamage(damage);
+        // defender takes mulitplied damage
+        defender.takeDamage(multipliedDamage);
 
-            // attack succeeds
-            AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
-            attackPresenter.prepareSuccessView(attackOutputData);
+        // attack succeeds
+        AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
+        attackPresenter.prepareSuccessView(attackOutputData);
 
-        }
-        else if (defenderResistances.containsKey(attackerType)) {
-            // apply negative multiplier and take damage
-            // attack succeeds
-        }
-        else {
-            // no multiplier application, base damage is taken
-            // attack succeeds
-
-        }
     }
     private Integer getDamageValue(HashMap<String, Integer> attack) {
         // finds the attack damage value from the attack.
@@ -59,5 +47,24 @@ public class AttackInteractor implements AttackInputBoundary {
             damage = attack.get(key);
         }
         return damage;
+    }
+
+    private Integer multiplyDamage(HashMap<String, Integer> defenderWeaknesses,
+                                   HashMap<String, Integer> defenderResistances,
+                                   String attackerType,
+                                   Integer damage) {
+        Integer multiplier = 1;
+
+        if (defenderWeaknesses.containsKey(attackerType)) {
+            multiplier = defenderWeaknesses.get(attackerType);
+
+        }
+        else if (defenderResistances.containsKey(attackerType)) {
+            multiplier = defenderResistances.get(attackerType);
+
+        }
+
+        Integer multipliedDamage = damage * multiplier;
+        return multipliedDamage;
     }
 }
