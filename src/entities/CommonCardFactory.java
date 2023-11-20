@@ -67,11 +67,20 @@ public class CommonCardFactory implements CardFactory {
             attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(attacksObj.getJSONObject(i).getString("damage")));
         }
 
+        boolean isSpecial = false;
+        JSONArray subtypesArray = card.getJSONArray("subtypes");
 
-        String rarity = card.getString("rarity");
+        // check if card subtype is ex or mega
+        for (int a = 0; a < subtypesArray.length(); a++) {
+            String subtype = subtypesArray.getString(a);
+            if ("ex".equalsIgnoreCase(subtype) || "mega".equalsIgnoreCase(subtype)) {
+                isSpecial = true;
+                break; // No need to continue checking once found
+            }
+        }
         String image = card.getJSONObject("images").getString("large");
 
-        return new CommonCard(name, id, hp, type, attacks, rarity, image);
+        return new CommonCard(name, id, hp, type, attacks, isSpecial, image);
     }
 
 }

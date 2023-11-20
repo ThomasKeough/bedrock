@@ -27,6 +27,8 @@ public class CardDAO implements CardDataAccessInterface{
         csvFile = new File(csvPath);
         headers.put("id", 0);
         headers.put("name", 1);
+        headers.put("isHighHp", 2);
+        headers.put("isSpecial", 3);
 
 
         if (csvFile.length() == 0) {
@@ -35,7 +37,7 @@ public class CardDAO implements CardDataAccessInterface{
 
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 String header = reader.readLine();
-                assert header.equals("id,name");
+                assert header.equals("id,name,isHighHp,isSpecial");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
@@ -63,7 +65,7 @@ public class CardDAO implements CardDataAccessInterface{
             writer.newLine();
 
             for (Card card : cards.values()) {
-                String line = String.format("%s,%s", card.getId(), card.getName());
+                String line = String.format("%s,%s", card.getId(), card.getName(), card.isHighHp(), card.isSpecial());
                 writer.write(line);
                 writer.newLine();
             }

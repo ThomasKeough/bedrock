@@ -9,16 +9,16 @@ public class CommonCard implements Card {
     private final Integer hp;
     private final Type type;
     private final HashMap<String, Integer> attack;
-    private final String rarity;
+    private final Boolean isSpecial;
     private final String image;
 
-    public CommonCard(String name, String id, Integer hp, Type type, HashMap<String, Integer> attack, String rarity, String image) {
+    public CommonCard(String name, String id, Integer hp, Type type, HashMap<String, Integer> attack, Boolean isSpecial, String image) {
         this.name = name;
         this.id = id;
         this.hp = hp;
         this.type = type;
         this.attack = attack;
-        this.rarity = rarity;
+        this.isSpecial = isSpecial;
         this.image = image;
     }
 
@@ -38,6 +38,9 @@ public class CommonCard implements Card {
         return hp;
     }
 
+    public Boolean isHighHp() { return hp >= 110;}
+
+    public Boolean isSpecial() {return isSpecial;}
 
     @Override
     public Type getType() {
@@ -47,11 +50,6 @@ public class CommonCard implements Card {
     @Override
     public HashMap<String, Integer> getAttacks() {
         return attack;
-    }
-
-    @Override
-    public String getRarity() {
-        return rarity;
     }
 
     @Override

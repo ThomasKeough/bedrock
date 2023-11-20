@@ -18,6 +18,7 @@ import java.io.FileWriter;
 
 public class TradingCardGameDAO implements CollectionDataAccessInterface{
     private final File csvFile;
+    // the current set being used for the game, sv3pt5 is ID for set Scarlet Violet 151
     String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
     private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
@@ -42,9 +43,9 @@ public class TradingCardGameDAO implements CollectionDataAccessInterface{
     }
 
 
-
-    // pulling all "playable" cards to store in a csv, so that we can have a circulation of card info and their data,
-    // either to be added into user's use_cases.collection or used by bot.
+    // pulling all 151 pokemon from the modern set ScarletViolet151 to store in a csv, so that we can have a circulation
+    // of card info and their data,either to be added into user's use_cases.collection or used by bot. Made so set in
+    // circulation can be switched out anytime.
 
     // should not store all card data, instead only store: pokemonName, id, type, isHighHP (110+), isSpecial(ex/mega),
 
