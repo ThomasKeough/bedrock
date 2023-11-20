@@ -11,6 +11,11 @@ public class CommonCollection implements Collection {
         this.limit = 100;
     }
 
+    public CommonCollection(ArrayList<Card> cards, Integer limit) {
+        this.cards = cards;
+        this.limit = limit;
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
