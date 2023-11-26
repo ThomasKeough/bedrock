@@ -29,7 +29,7 @@ public class AttackInteractor implements AttackInputBoundary {
             // boost the damage value in accordance with weaknesses
             Integer multipliedDamage = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
 
-            // defender takes mulitplied damage
+            // defender takes multiplied damage
             defender.takeDamage(multipliedDamage);
 
             // attack succeeds
@@ -48,7 +48,7 @@ public class AttackInteractor implements AttackInputBoundary {
         // AttackInteractor never learns the key (name) of the attack.
 
         Set<String> keys = attack.keySet();
-        Integer damage;
+        Integer damage = 0;
         for (String key : keys) {
             damage = attack.get(key);
         }
