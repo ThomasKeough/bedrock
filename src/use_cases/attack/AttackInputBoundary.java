@@ -1,4 +1,7 @@
 package use_cases.attack;
 
-public class AttackInputBoundary {
+import entities.GamePokemon;
+
+public interface AttackInputBoundary {
+    public void execute(AttackInputData attackInputData);
 }

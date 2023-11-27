@@ -56,5 +56,8 @@ public class GameCard implements GamePokemon {
         this.setHP(this.getHP() - damage);
     }
 
+    public void swap() {
+        this.onField = !onField;
+    }
 
 }
