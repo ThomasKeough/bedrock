@@ -44,7 +44,7 @@ public class GameCard implements GamePokemon {
 
     public boolean isOnField() {
         return onField;
-    }
+    } // only 1 can be on the field at the same time
 
     public void faint() {
         if (this.getHP() <= 0) {
@@ -55,5 +55,6 @@ public class GameCard implements GamePokemon {
     public void takeDamage(Integer damage) {
         this.setHP(this.getHP() - damage);
     }
+
 
 }
