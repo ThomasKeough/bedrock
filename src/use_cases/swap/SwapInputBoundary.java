@@ -1,5 +1,6 @@
 package use_cases.swap;
 
 public interface SwapInputBoundary {
-    void execute(SwapInputData swapInputData);
+    public void execute(SwapInputData swapInputData);
+
 }
