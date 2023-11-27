@@ -1,5 +1,6 @@
 package use_cases.swap;
 
+<<<<<<< HEAD
 import entities.Game;
 import entities.GamePokemon;
 

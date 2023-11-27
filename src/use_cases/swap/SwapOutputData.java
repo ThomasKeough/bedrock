@@ -1,13 +1,12 @@
 package use_cases.swap;
 
 public class SwapOutputData {
-    private final String message;
 
-    public SwapOutputData(String message) {
-        this.message = message;
+    private final boolean result;
+
+    public SwapOutputData(boolean result) {
+        this.result = result;
     }
 
-    public String getMessage() {
-        return this.message;
-    }
+    public boolean getResult() { return this.result; }
 }
