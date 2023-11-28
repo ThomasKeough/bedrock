@@ -14,8 +14,6 @@ public interface GamePokemon {
 
     public boolean isOnField();
 
-    public void faint();
-
     public void takeDamage(Integer damage);
 
     public void swap();

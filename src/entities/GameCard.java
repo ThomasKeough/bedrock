@@ -46,14 +46,12 @@ public class GameCard implements GamePokemon {
         return onField;
     }
 
-    public void faint() {
+    public void takeDamage(Integer damage) {
+        this.setHP(this.getHP() - damage);
         if (this.getHP() <= 0) {
             this.fainted = true;
         }
-    }
 
-    public void takeDamage(Integer damage) {
-        this.setHP(this.getHP() - damage);
     }
 
     public void swap() {
