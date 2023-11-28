@@ -58,7 +58,7 @@ public class CommonCardFactory implements CardFactory {
         } else {
             weaknessValue = "0";
         }
-        cardWeaknesses.put(cardWeaknessesObj.getString("name"), Integer.parseInt(weaknessValue));
+        cardWeaknesses.put(cardWeaknessesObj.getString("type"), Integer.parseInt(weaknessValue));
 
 //        cardWeaknesses.put(cardWeaknessesObj.getString("type"), cardWeaknessesObj.getInt("value"));
 
@@ -72,7 +72,7 @@ public class CommonCardFactory implements CardFactory {
             } else {
                 resistanceValue = "0";
             }
-            cardResistances.put(cardResistancesObj.getString("name"), Integer.parseInt(resistanceValue));
+            cardResistances.put(cardResistancesObj.getString("type"), Integer.parseInt(resistanceValue));
 
 //            cardResistances.put(cardResistancesObj.getString("type"), cardResistancesObj.getInt("value"));
         }
