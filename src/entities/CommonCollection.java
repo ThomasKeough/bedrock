@@ -25,6 +25,6 @@ public class CommonCollection implements Collection {
     }
 
     public Boolean atLimit() {
-        return cards.size() <= limit;
+        return cards.size() >= limit;
     }
 }
