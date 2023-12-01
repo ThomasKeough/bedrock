@@ -44,7 +44,7 @@ public class CommonCardFactory implements CardFactory {
         }
     }
 
-    public Card build_card(JSONObject card, String id){
+    public Card build_card(JSONObject card, String id) {
         String name = card.getString("name");
         Integer hp = card.getInt("hp");
 
@@ -52,12 +52,29 @@ public class CommonCardFactory implements CardFactory {
 
         JSONObject cardWeaknessesObj = card.getJSONArray("weaknesses").getJSONObject(0);
         HashMap<String, Integer> cardWeaknesses = new HashMap<>();
-        cardWeaknesses.put(cardWeaknessesObj.getString("type"), cardWeaknessesObj.getInt("value"));
+        String weaknessValue = cardWeaknessesObj.getString("value");
+        if (!Objects.equals(weaknessValue, "")) {
+            weaknessValue = cleanNumberString(weaknessValue);
+        } else {
+            weaknessValue = "0";
+        }
+        cardWeaknesses.put(cardWeaknessesObj.getString("name"), Integer.parseInt(weaknessValue));
+
+//        cardWeaknesses.put(cardWeaknessesObj.getString("type"), cardWeaknessesObj.getInt("value"));
 
         HashMap<String, Integer> cardResistances = new HashMap<>();
         if (card.has("resistances")) {
             JSONObject cardResistancesObj = card.getJSONArray("resistances").getJSONObject(0);
-            cardResistances.put(cardResistancesObj.getString("type"), cardResistancesObj.getInt("value"));
+
+            String resistanceValue = cardResistancesObj.getString("value");
+            if (!Objects.equals(resistanceValue, "")) {
+                resistanceValue = cleanNumberString(resistanceValue);
+            } else {
+                resistanceValue = "0";
+            }
+            cardResistances.put(cardResistancesObj.getString("name"), Integer.parseInt(resistanceValue));
+
+//            cardResistances.put(cardResistancesObj.getString("type"), cardResistancesObj.getInt("value"));
         }
 
         Type type = new CommonType(cardType, cardWeaknesses, cardResistances);
@@ -67,12 +84,12 @@ public class CommonCardFactory implements CardFactory {
         for (int i = 0; i < attacksObj.length(); i++) {
             String damage = attacksObj.getJSONObject(i).getString("damage");
             if (!Objects.equals(damage, "")) {
-                damage = damage.replace("×", "");
-                damage = damage.replace("+", "");
-                damage = damage.replace("-", "");
+                damage = cleanNumberString(damage); // refactored the code below so we can reuse it in weakness and resistance
+//                damage = damage.replace("×", "");
+//                damage = damage.replace("+", "");
+//                damage = damage.replace("-", "");
                 attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
-            }
-            else {
+            } else {
                 attacks.put(attacksObj.getJSONObject(i).getString("name"), 0);
             }
 
@@ -94,4 +111,10 @@ public class CommonCardFactory implements CardFactory {
         return new CommonCard(name, id, hp, type, attacks, isSpecial, image);
     }
 
+    private String cleanNumberString(String s) {
+        s = s.replace("×", "");
+        s = s.replace("+", "");
+        s = s.replace("-", "");
+        return s;
+    }
 }
