@@ -74,6 +74,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
     public void handleSwap(GameCard activeOne, GameCard activeTwo) {
         SwapInputData swapInputData = new SwapInputData((..., ...));
         SwapInteractor.execute(swapInputData);
+        // TODO: fix input data for Swap use case
     }
 
 
