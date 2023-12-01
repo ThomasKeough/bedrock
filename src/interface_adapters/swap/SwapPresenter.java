@@ -27,7 +27,6 @@ public class SwapPresenter implements SwapOutputBoundary {
 
         viewManagerModel.setActiveView(gameViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
     }
 
     @Override
