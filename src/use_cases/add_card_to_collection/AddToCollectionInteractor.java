@@ -23,8 +23,7 @@ public class AddToCollectionInteractor implements AddToCollectionInputBoundary {
         }
         else {
             try {
-                addToCollectionDAO.addCard(card);
-                addToCollectionDAO.save();
+                addToCollectionDAO.save(card);
                 AddToCollectionOutputData outputData = new AddToCollectionOutputData(card);
                 addToCollectionPresenter.prepareSuccessView(outputData);
             }

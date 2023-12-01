@@ -6,8 +6,6 @@ public interface AddToCollectionDataAccessInterface {
 
     boolean cardInCollection(Card card);
 
-    void addCard(Card card);
-
-    void save();
+    void save(Card card);
 
 }

@@ -1,15 +1,22 @@
-//package use_cases.swap;
-//
-//public class SwapInputData {
-//    //TODO: review thomas' PR and add import statements for the Pokemon entities
-//
-//    final private Pokemon active_pokemon;
-//    final private Pokemon target_pokemon; // the pokemon that the user wants to swap to
-//
-//    // TODO: add constructor
-//
-//    Pokemon getActive_pokemon() { return this.active_pokemon; }
-//
-//    Pokemon getTarget_pokemon() { return this.target_pokemon; }
-//
-//}
+package use_cases.swap;
+
+import entities.GamePokemon;
+
+public class SwapInputData {
+    private final GamePokemon swapIn;
+    private final GamePokemon swapOut;
+
+    public SwapInputData(GamePokemon swapIn, GamePokemon swapOut) {
+        this.swapIn = swapIn;
+        this.swapOut = swapOut;
+    }
+
+    public GamePokemon getSwapIn() {
+        return this.swapIn;
+    }
+
+    public GamePokemon getSwapOut() {
+        return this.swapOut;
+    }
+
+}
