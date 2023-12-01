@@ -1,19 +1,19 @@
 package use_cases.game;
 
 import entities.*;
-import interface_adapters.attack.AttackController;
-import use_cases.attack.AttackDataAccessInterface;
+//import interface_adapters.attack.AttackController;
+//import use_cases.attack.AttackDataAccessInterface;
 import use_cases.attack.AttackInputBoundary;
 import use_cases.attack.AttackInputData;
-import use_cases.attack.AttackInteractor;
-import use_cases.swap.SwapDataAccessInterface;
-import use_cases.swap.SwapInputBoundary;
-import use_cases.swap.SwapInputData;
-import use_cases.swap.SwapInteractor;
+//import use_cases.attack.AttackInteractor;
+//import use_cases.swap.SwapDataAccessInterface;
+//import use_cases.swap.SwapInputBoundary;
+//import use_cases.swap.SwapInputData;
+//import use_cases.swap.SwapInteractor;
 
-import java.sql.Array;
+//import java.sql.Array;
+//import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class GameInteractor implements GameInputBoundary, GameInputListener {
@@ -24,7 +24,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
 
     private final AttackInputBoundary attackInteractor;
 
-    private final SwapInputBoundary swapInteractor;
+//    private final SwapInputBoundary swapInteractor;
 
     private boolean attackButtonPressed;
     private boolean swapButtonPressed;
@@ -32,12 +32,12 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
     private final GameInputListener gameInputListener;
 
     public GameInteractor(GameDataAccessInterface gameDataAccessInterface,
-                          GameOutputBoundary gameOutputBoundary, AttackInputBoundary attackInteractor,
-                          SwapInputBoundary swapInteractor) {
+                          GameOutputBoundary gameOutputBoundary, AttackInputBoundary attackInteractor) {
+//                          SwapInputBoundary swapInteractor) {
         this.gameDataAccessInterface = gameDataAccessInterface;
         this.gameOutputBoundary = gameOutputBoundary;
         this.attackInteractor = attackInteractor;
-        this.swapInteractor = swapInteractor;
+//        this.swapInteractor = swapInteractor;
         this.gameInputListener = this;
     }
 
@@ -49,11 +49,11 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
             // TODO: update GameState here
         }
 
-        if (swapButtonPressed) {
-            handleSwap(activeOne, activeTwo);
-            gameInputListener.resetSwapButton(); // Reset the button state
-            // TODO: update GameState? (changed active pokemon)
-        }
+//        if (swapButtonPressed) {
+//            handleSwap(activeOne, activeTwo);
+//            gameInputListener.resetSwapButton(); // Reset the button state
+//            // TODO: update GameState? (changed active pokemon)
+//        }
     }
 
     @Override
@@ -62,26 +62,28 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
     }
 
     @Override
-    public void resetSwapButton() {
-        swapButtonPressed = false;
-    }
+//    public void resetSwapButton() {
+//        swapButtonPressed = false;
+//    }
 
     public void handleAttack(GameCard activeOne, GameCard activeTwo) {
+        // TODO: add another case for if activeTwo is attacking?
+        // TODO: current implementation is activeOne attacks activeTwo
         AttackInputData attackInputData = new AttackInputData(activeOne, activeTwo);
         attackInteractor.execute(attackInputData);
     }
 
-    public void handleSwap(GameCard activeOne, GameCard activeTwo) {
-        SwapInputData swapInputData = new SwapInputData((..., ...));
-        SwapInteractor.execute(swapInputData);
-        // TODO: fix input data for Swap use case
-    }
+//    public void handleSwap(GameCard activeOne, GameCard activeTwo) {
+//        SwapInputData swapInputData = new SwapInputData((..., ...));
+//        SwapInteractor.execute(swapInputData);
+//        // TODO: fix input data for Swap use case
+//    }
 
 
 
 
     @Override
-    public Player execute(GameInputData gameInputData) {
+    public void execute(GameInputData gameInputData) {
         Player playerOne = gameInputData.getPlayerOne();
         Player playerTwo = gameInputData.getPlayerTwo();
 
@@ -89,35 +91,63 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
         ArrayList<GameCard> gameCardsOne = initializeCards(playerOne);
         ArrayList<GameCard> gameCardsTwo = initializeCards(playerTwo);
 
-        Integer winner;
+        // FIND WINNER AND BUNDLE INTO A GAMEOUTPUTDATA OBJECT
+        Integer winner = coinFlip(gameCardsOne, gameCardsTwo);
+        GameOutputData gameOutputData = determineWinner(winner, playerOne, playerTwo);
+        gameOutputBoundary.prepareSuccessView(gameOutputData);
 
 
-        //TODO: fix this so that it's cleaner
-        Random random = new Random();
-        // if coinFlip = 0: player 1 goes first
-        // else:  player 2 goes first
-        int coinFlip = random.nextInt(2);
-        if (coinFlip == 0) {
-            winner = runGameLoop(gameCardsOne, gameCardsTwo);
-            if (winner == 1) {
-                return playerOne;
-            }
-            else {
-                return playerTwo;
-            }
-        }
-        else {
-            winner = runGameLoop(gameCardsTwo, gameCardsOne);
-            if (winner == 2) {
-                return playerTwo;
-            }
-            else {
-                return playerOne;
-            }
-        }
 
-        // TODO: write up a presenter.prepareSuccessView()
+//        if (coinFlip == 0) {
+//            winner = runGameLoop(gameCardsOne, gameCardsTwo);
+//            if (winner == 1) {
+////                GameOutputData gameOutputData = new GameOutputData(playerOne);
+//                return playerOne;
+//            }
+//            else {
+//                return playerTwo;
+//            }
+//        }
+//        else {
+//            winner = runGameLoop(gameCardsTwo, gameCardsOne);
+//            if (winner == 2) {
+//                return playerTwo;
+//            }
+//            else {
+//                return playerOne;
+//            }
+//        }
     }
+
+    public GameOutputData determineWinner(Integer winner, Player playerOne, Player playerTwo) {
+        if (winner == 1) { // PLAYER 1 WINS
+            return new GameOutputData(playerOne);
+        }
+        else { // winner == 2 -> PLAYER 2 WINS
+            return new GameOutputData(playerTwo);
+        }
+    }
+
+    public Integer coinFlip(ArrayList<GameCard> gameCardsOne, ArrayList<GameCard> gameCardsTwo) {
+        // COIN FLIP TO DETERMINE WHICH PLAYER GOES FIRST
+        // IF IT LANDS ON 0, PLAYER 1 GOES FIRST
+        // IF IT LANDS ON 1, PLAYER 2 GOES FIRST
+        Integer winner;
+        Random random = new Random();
+        int coinFlip = random.nextInt(2);
+        if (coinFlip == 0)  {
+            winner = runGameLoop(gameCardsOne, gameCardsTwo);
+        } else {
+            winner = runGameLoop(gameCardsTwo, gameCardsOne);
+        }
+        return winner;
+
+    }
+
+//
+//    public GameOutputData startGame(ArrayList<GameCard> gameCardsFirst, ArrayList<GameCard> gameCardsSecond) {
+//
+//    }
 
     public ArrayList<GameCard> initializeCards(Player player) {
         // INITIALIZES GAMECARD OBJECTS GIVEN THE USERS
@@ -148,6 +178,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
             }
 
             onGameStateUpdate(activeOne, activeTwo);
+            // TODO: do we need onGameStateUpdate(activeTwo, activeOne); for the second player's move?
 
 //                gameInputListener.onGameStateUpdate(activeOne, activeTwo);
 //
@@ -182,6 +213,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
                     return 1; // first player wins
                 }
             }
+
         }
 }
 

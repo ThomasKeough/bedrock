@@ -11,5 +11,5 @@ public interface GameInputBoundary {
 //
 //    Player executeSwap(GameInputData gameInputData);
 
-    Player execute(GameInputData gameInputData);
+    void execute(GameInputData gameInputData);
 }

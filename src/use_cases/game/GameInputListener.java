@@ -8,12 +8,12 @@ public interface GameInputListener {
     void handleAttack(GameCard activeOne, GameCard activeTwo);
 
 
-    void handleSwap(GameCard activeOne, GameCard activeTwo);
+//    void handleSwap(GameCard activeOne, GameCard activeTwo);
 
 
     void resetAttackButton();
 
 
-    void resetSwapButton();
+//    void resetSwapButton();
 
 }
