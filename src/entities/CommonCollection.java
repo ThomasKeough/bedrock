@@ -31,9 +31,9 @@ public class CommonCollection implements Collection {
             e.printStackTrace();
         }
 
-        // Randomly pick 100 lines and call csv_to_card on each
+        // Randomly pick necessary number of lines and call csv_to_card on each
         Random rand = new Random();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < limit; i++) {
             int randomIndex = rand.nextInt(lines.size());
             String randomLine = lines.get(randomIndex);
             csv_to_card(randomLine);

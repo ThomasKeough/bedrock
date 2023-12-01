@@ -1,7 +1,7 @@
 package use_cases.display_card;
 
 public interface DisplayCardOutputBoundary {
-    void prepareSuccessView(DisplayCardOutputData user);
+    void prepareSuccessView(DisplayCardOutputData displayCardOutputData);
 
-    void prepareFailView(String error);
+    void prepareFailView(DisplayCardOutputData displayCardOutputData);
 }
