@@ -2,9 +2,13 @@ package use_cases.game;
 
 import entities.*;
 import interface_adapters.attack.AttackController;
+import use_cases.attack.AttackDataAccessInterface;
 import use_cases.attack.AttackInputBoundary;
 import use_cases.attack.AttackInputData;
 import use_cases.attack.AttackInteractor;
+import use_cases.swap.SwapDataAccessInterface;
+import use_cases.swap.SwapInputBoundary;
+import use_cases.swap.SwapInputData;
 import use_cases.swap.SwapInteractor;
 
 import java.sql.Array;
@@ -12,33 +16,68 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class GameInteractor implements GameInputBoundary {
+public class GameInteractor implements GameInputBoundary, GameInputListener {
 
-    final GameDataAccessInterface gameDataAccessInterface;
+    private final GameDataAccessInterface gameDataAccessInterface;
 
-    final GameOutputBoundary gameOutputBoundary;
+    private final GameOutputBoundary gameOutputBoundary;
 
+    private final AttackInputBoundary attackInteractor;
 
+    private final SwapInputBoundary swapInteractor;
 
+    private boolean attackButtonPressed;
+    private boolean swapButtonPressed;
+
+    private final GameInputListener gameInputListener;
 
     public GameInteractor(GameDataAccessInterface gameDataAccessInterface,
-                            GameOutputBoundary gameOutputBoundary) {
+                          GameOutputBoundary gameOutputBoundary, AttackInputBoundary attackInteractor,
+                          SwapInputBoundary swapInteractor) {
         this.gameDataAccessInterface = gameDataAccessInterface;
         this.gameOutputBoundary = gameOutputBoundary;
+        this.attackInteractor = attackInteractor;
+        this.swapInteractor = swapInteractor;
+        this.gameInputListener = this;
     }
 
+    @Override
+    public void onGameStateUpdate(GameCard activeOne, GameCard activeTwo) {
+        if (attackButtonPressed) {
+            handleAttack(activeOne, activeTwo);
+            resetAttackButton(); // Reset the button state
+            // TODO: update GameState here
+        }
 
-    // TODO: add to notes (callign controller here might vioalte SOLID?)
-    public void executeAttack(GameInputData gameInputData, AttackInteractor attackInteractor) {
-        // TODO: need active GamePokemon here
+        if (swapButtonPressed) {
+            handleSwap(activeOne, activeTwo);
+            gameInputListener.resetSwapButton(); // Reset the button state
+            // TODO: update GameState? (changed active pokemon)
+        }
+    }
 
-        AttackInputData attackInputData = new AttackInputData(..., ...);
+    @Override
+    public void resetAttackButton() {
+        attackButtonPressed = false;
+    }
+
+    @Override
+    public void resetSwapButton() {
+        swapButtonPressed = false;
+    }
+
+    public void handleAttack(GameCard activeOne, GameCard activeTwo) {
+        AttackInputData attackInputData = new AttackInputData(activeOne, activeTwo);
         attackInteractor.execute(attackInputData);
     }
 
-    public void executeSwap(GameInputData gameInputData, SwapInteractor swapInteractor) {
-        ...
+    public void handleSwap(GameCard activeOne, GameCard activeTwo) {
+        SwapInputData swapInputData = new SwapInputData((..., ...));
+        SwapInteractor.execute(swapInputData);
     }
+
+
+
 
     @Override
     public Player execute(GameInputData gameInputData) {
@@ -91,16 +130,13 @@ public class GameInteractor implements GameInputBoundary {
         return gameCards;
     }
 
-//    public
-
-
     public Integer runGameLoop(ArrayList<GameCard> gameCardsFirst, ArrayList<GameCard> gameCardsSecond) {
 
-        GameCard activeOne;
-        GameCard activeTwo;
+        GameCard activeOne = null;
+        GameCard activeTwo = null;
 
         while (true) {
-            for(int i = 0; i < gameCardsFirst.size(); i++) { // since both arrays equal size, we only need 1
+            for (int i = 0; i < gameCardsFirst.size(); i++) { // since both arrays equal size, we only need 1
                 if (gameCardsFirst.get(i).isOnField()) {
                     activeOne = gameCardsFirst.get(i);
                 }
@@ -108,43 +144,43 @@ public class GameInteractor implements GameInputBoundary {
                     activeTwo = gameCardsSecond.get(i);
                 }
                 // activeOne and activeTwo are the active pokemons on the battlefield
-
-                // TODO: implement logic here
-
-
-
-            // first player uses active pokemon to attack second player's active pokemon
-
-
-//            activeTwo.takeDamage(activeOne);
-
-
-
-            /// TODO: swap use case will handle setting which pokemon isOnField
-
-            // TODO:
-
-            // TODO: update loop for every move made
-            // TODO: if a pokemon faints, remove from arraylist
-
-            // checks to see if pokemon fainted
-
-
-            if (gameCardsFirst.isEmpty()) {
-                return 2; // second player wins
             }
-            if (gameCardsSecond.isEmpty()) {
-                return 1; // first player wins
+
+            onGameStateUpdate(activeOne, activeTwo);
+
+//                gameInputListener.onGameStateUpdate(activeOne, activeTwo);
+//
+//                if (gameInputListener.isAttackButtonPressed()) {
+//                    AttackInputData attackInputData = new AttackInputData((activeOne, activeTwo))
+//                    attackInteractor.execute(attackInputData);
+//                    gameInputListener.resetAttackButton(); // Reset the button state
+//                    // TODO: update GameState here
+//                }
+//
+//                if (gameInputListener.isSwapButtonPressed()) {
+//                    SwapInputData swapInputData = new SwapInputData(...)
+//                    SwapInteractor.execute(swapInputData);
+//                    gameInputListener.resetSwapButton(); // Reset the button state
+//                    // TODO: update GameState? (changed active pokemon)
+//                }
+
+
+                // CHECKS IF A POKEMON HAS FAINTED - IF IT HAS, REMOVE FROM THE LIST
+                for (int j = 0; j < gameCardsFirst.size(); j++) { // since both arrays equal size, we only need 1
+                    if (gameCardsFirst.get(j).hasFainted()) {
+                        gameCardsFirst.remove(gameCardsFirst.get(j));
+                    }
+                    if (gameCardsSecond.get(j).hasFainted()) {
+                        gameCardsSecond.remove(gameCardsSecond.get(j));
+                    }
+                }
+                if (gameCardsFirst.isEmpty()) {
+                    return 2; // second player wins
+                }
+                if (gameCardsSecond.isEmpty()) {
+                    return 1; // first player wins
+                }
             }
         }
-
-
-        // TODO: if a GameCard faints, remove from the list
-
-
-
-        // TODO: have a user input set into a variable
-
-        // TODO: run the game loop here
-    }
 }
+

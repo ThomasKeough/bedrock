@@ -26,14 +26,14 @@ public class GameController {
         return gameUseCaseInteractor.execute(gameInputData);
     }
 
-    public Player executeAttack(Player playerOne, Player playerTwo) {
-        GameInputData gameInputData = new GameInputData(playerOne, playerTwo);
-//        return attackInteractor.execute(gameInputData);
-        return gameUseCaseInteractor.executeAttack(gameInputData);
-    }
-
-    public Player executeSwap(Player playerOne, Player playerTwo, SwapController swapController) {
-        GameInputData gameInputData = new GameInputData(playerOne, playerTwo);
-        return gameUseCaseInteractor.executeSwap(gameInputData);
-    }
+//    public Player executeAttack(Player playerOne, Player playerTwo) {
+//        GameInputData gameInputData = new GameInputData(playerOne, playerTwo);
+////        return attackInteractor.execute(gameInputData);
+//        return gameUseCaseInteractor.executeAttack(gameInputData);
+//    }
+//
+//    public Player executeSwap(Player playerOne, Player playerTwo, SwapController swapController) {
+//        GameInputData gameInputData = new GameInputData(playerOne, playerTwo);
+//        return gameUseCaseInteractor.executeSwap(gameInputData);
+//    }
 }

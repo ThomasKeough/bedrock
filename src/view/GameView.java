@@ -1,9 +1,8 @@
 package view;
 
 import entities.Player;
-import interface_adapters.attack.AttackController;
 import interface_adapters.game.GameController;
-import interface_adapters.game.GameInputListener;
+import use_cases.game.GameInputListener;
 import interface_adapters.game.GameViewModel;
 
 
@@ -11,8 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -28,6 +25,10 @@ public class GameView extends JPanel implements ActionListener, PropertyChangeLi
 
     private final JButton swap;
     private final JButton attack;
+
+    private boolean attackButtonPressed;
+
+    private boolean swapButtonPressed;
 
     public GameView(GameController controller, GameViewModel gameViewModel, GameInputListener gameInputListener, Player playerOne, Player playerTwo) {
         this.gameController = controller;
@@ -53,23 +54,27 @@ public class GameView extends JPanel implements ActionListener, PropertyChangeLi
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(attack)) {
-                            gameController.executeAttack(playerOne, playerTwo);
+                        attackButtonPressed = true;
+//                        if (evt.getSource().equals(attack)) {
+
+//                            gameInputListener.executeAttack(playerOne, playerTwo);
+//                        }
                         }
                     }
-                }
         );
+
         //TODO: finish this
-//        swap.addActionListener(
-//                new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent evt) {
+        swap.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        swapButtonPressed = true;
 //                        if (evt.getSource().equals(swap)) {
 //                            gameController.executeSwap(playerOne, playerTwo);
 //                        }
-//                    }
-//                }
-//        );
+                    }
+                }
+        );
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.
@@ -140,15 +145,15 @@ public class GameView extends JPanel implements ActionListener, PropertyChangeLi
     /**
      * React to a button click that results in evt.
      */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Cancel not implemented yet.");
-    }
+//    public void actionPerformed(ActionEvent evt) {
+//        System.out.println("Cancel not implemented yet.");
+//    }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        SignupState state = (SignupState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
-        }
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        SignupState state = (SignupState) evt.getNewValue();
+//        if (state.getUsernameError() != null) {
+//            JOptionPane.showMessageDialog(this, state.getUsernameError());
+//        }
     }
 }
