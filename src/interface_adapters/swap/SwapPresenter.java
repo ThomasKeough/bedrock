@@ -1,7 +1,7 @@
 package interface_adapters.swap;
 
 import interface_adapters.ViewManagerModel;
-import interface_adapters.ViewModel;
+import interface_adapters.game.GameViewModel;
 import use_cases.swap.SwapOutputBoundary;
 import use_cases.swap.SwapOutputData;
 
@@ -26,12 +26,12 @@ public class SwapPresenter implements SwapOutputBoundary {
         swapViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(gameViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
 
     }
 
     @Override
     public void prepareFailView(SwapOutputData swapOutputData) {
-        //TODO
-
+        System.out.println("swap failed");
     }
 }
