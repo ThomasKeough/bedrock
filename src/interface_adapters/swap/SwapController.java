@@ -15,3 +15,5 @@ public class SwapController {
         SwapInputData swapInputData = new SwapInputData(swapIn, swapOut);
         swapInputBoundary.execute(swapInputData);
     }
+}
+

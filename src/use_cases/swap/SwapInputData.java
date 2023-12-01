@@ -1,6 +1,4 @@
 package use_cases.swap;
-
-import entities.Game;
 import entities.GamePokemon;
 
 public class SwapInputData {
