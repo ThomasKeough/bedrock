@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_cases.collection.CollectionDataAccessInterface;
+import use_cases.game.GameDataAccessInterface;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +18,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 
-public class TradingCardGameDAO implements CollectionDataAccessInterface{
+public class TradingCardGameDAO implements CollectionDataAccessInterface, GameDataAccessInterface {
     private final File csvFile;
     // the current set being used for the game, sv3pt5 is ID for set Scarlet Violet 151
     String setID = "sv3pt5";
