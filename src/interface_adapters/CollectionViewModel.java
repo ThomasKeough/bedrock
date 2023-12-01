@@ -1,4 +1,6 @@
 package interface_adapters;
 
-public class CollectionViewModel {
+import javax.swing.*;
+
+public class CollectionViewModel extends JPanel {
 }

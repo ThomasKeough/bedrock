@@ -2,7 +2,9 @@ package view;
 
 import interface_adapters.DecksViewModel;
 
-public class DecksView {
+import javax.swing.*;
+
+public class DecksView extends JPanel {
     public final String viewName = "Decks Menu";
     private final DecksViewModel decksViewModel;
 

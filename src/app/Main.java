@@ -29,7 +29,7 @@ public class Main {
 
         MainViewModel mainViewModel = new MainViewModel();
         HubViewModel hubViewModel = new HubViewModel();
-        PlayViewModel playView = new PlayViewModel();
+        PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
 
@@ -46,7 +46,14 @@ public class Main {
         HubView hubView = new HubView(hubViewModel, viewManagerModel);
         views.add(hubView, hubView.viewName);
 
+        PlayView playView = new PlayView(playViewModel, viewManagerModel);
+        views.add(playView, playView.viewName);
 
+        CollectionView collectionView = new CollectionView(collectionViewModel);
+        views.add(collectionView, collectionView.viewName);
+
+        DecksView decksView = new DecksView(decksViewModel);
+        views.add(decksView, decksView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();

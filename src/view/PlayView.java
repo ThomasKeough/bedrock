@@ -3,7 +3,9 @@ package view;
 import interface_adapters.PlayViewModel;
 import interface_adapters.ViewManagerModel;
 
-public class PlayView {
+import javax.swing.*;
+
+public class PlayView extends JPanel {
     public final String viewName = "Play Menu";
     private final PlayViewModel playViewModel;
     private ViewManagerModel viewManagerModel;

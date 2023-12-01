@@ -5,6 +5,7 @@ import interface_adapters.MainViewModel;
 import interface_adapters.ViewManagerModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;;
@@ -21,23 +22,29 @@ public class MainView extends JPanel {
         this.mainViewModel = mainViewModel;
         this.viewManagerModel = viewManagerModel;
 
-        JLabel title = new JLabel("Pokemon");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel pokemonLogoLabel = new JLabel();
+
+        JPanel logoPanel = new JPanel();
+        logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.PAGE_AXIS));
 
         JPanel buttons = new JPanel();
         start = new JButton(mainViewModel.START_BUTTON_LABEL);
+        start.setPreferredSize(new Dimension(150, 50));
+        start.setFont(new Font("Roboto", Font.BOLD, 16));
         buttons.add(start);
 
         try {
             ImageIcon pokemonLogo = new ImageIcon("images/pokemon_logo.png");
             ImageIcon resizedPokemonLogo = resizeIcon(pokemonLogo, 0.25);
-            title.setIcon(resizedPokemonLogo);
+            pokemonLogoLabel.setIcon(resizedPokemonLogo);
         } catch (Exception e) {
             throw new RuntimeException("Error loading image: " + e.getMessage());
         }
 
-        this.add(title);
-        this.add(buttons);
+        setLayout(new BorderLayout());
+
+        this.add(pokemonLogoLabel, BorderLayout.NORTH);
+        this.add(buttons, BorderLayout.CENTER);
 
         start.addActionListener(
                 new ActionListener() {
