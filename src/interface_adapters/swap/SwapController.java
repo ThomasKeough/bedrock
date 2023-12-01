@@ -14,4 +14,5 @@ public class SwapController {
     public void execute(GamePokemon swapIn, GamePokemon swapOut) {
         SwapInputData swapInputData = new SwapInputData(swapIn, swapOut);
         swapInputBoundary.execute(swapInputData);
+    }
 }

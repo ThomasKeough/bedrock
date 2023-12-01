@@ -6,7 +6,6 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_cases.collection.CollectionDataAccessInterface;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,25 +15,24 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 
-public class TradingCardGameDAO implements CollectionDataAccessInterface{
-    private final File csvFile;
+public class TradingCardGameDAO{
+
     // the current set being used for the game, sv3pt5 is ID for set Scarlet Violet 151
     String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
     private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
 
     // constructor
-    public TradingCardGameDAO(File csvFile) {
-        this.csvFile = csvFile;
+    public TradingCardGameDAO() {
     }
 
     // for testing
-    public static void main(String[] args) {
+    public static void fetch_and_write_data() {
         // Specify the CSV file path
         File csvFile = new File("pokemon_info.csv");
 
         // Create an instance of TradingCardGameDAO
-        TradingCardGameDAO dao = new TradingCardGameDAO(csvFile);
+        TradingCardGameDAO dao = new TradingCardGameDAO();
 
         // Call the getAllCards method to fetch data from the API and write to the CSV file
         dao.getAllCards("sv3pt5");

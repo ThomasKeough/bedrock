@@ -5,7 +5,7 @@ import use_cases.swap.SwapOutputData;
 
 public class SwapPresenter implements SwapOutputBoundary {
     @Override
-    public void prepareSucessView(SwapOutputData swapOutputData) {
+    public void prepareSuccessView(SwapOutputData swapOutputData) {
         //TODO
     }
 
