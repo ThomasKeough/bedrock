@@ -1,5 +1,6 @@
 package interface_adapters.swap;
 
+import interface_adapters.ViewManagerModel;
 import interface_adapters.ViewModel;
 import use_cases.swap.SwapOutputBoundary;
 import use_cases.swap.SwapOutputData;
@@ -7,12 +8,14 @@ import use_cases.swap.SwapOutputData;
 public class SwapPresenter implements SwapOutputBoundary {
 
     private final SwapViewModel swapViewModel;
-
-    private final ViewModel viewModel;
+    private final GameViewModel gameViewModel;
+    private final ViewManagerModel viewManagerModel;
     public SwapPresenter(SwapViewModel swapViewModel,
-                         ViewModel viewModel) {
+                         GameViewModel gameViewModel,
+                         ViewManagerModel viewManagerModel) {
         this.swapViewModel = swapViewModel;
-        this.viewModel = viewModel;
+        this.gameViewModel = gameViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     @Override
@@ -21,6 +24,8 @@ public class SwapPresenter implements SwapOutputBoundary {
         swapState.setSwaps(swapOutputData);
         swapViewModel.setState(swapState);
         swapViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(gameViewModel.getViewName());
 
     }
 
