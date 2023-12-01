@@ -1,7 +1,9 @@
 package view;
 
+import entities.Player;
 import interface_adapters.attack.AttackController;
 import interface_adapters.game.GameController;
+import interface_adapters.game.GameInputListener;
 import interface_adapters.game.GameViewModel;
 
 
@@ -18,24 +20,28 @@ public class GameView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "game";
 
     private final GameViewModel gameViewModel;
-//    private final JTextField usernameInputField = new JTextField(15);
-//    private final JPasswordField passwordInputField = new JPasswordField(15);
-//    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private final GameInputListener gameInputListener;
     private final GameController gameController;
+    private final Player playerOne;
+    private final Player playerTwo;
+
 
     private final JButton swap;
     private final JButton attack;
 
-    public GameView(GameController controller, GameViewModel gameViewModel) {
-
+    public GameView(GameController controller, GameViewModel gameViewModel, GameInputListener gameInputListener, Player playerOne, Player playerTwo) {
         this.gameController = controller;
         this.gameViewModel = gameViewModel;
+        this.gameInputListener = gameInputListener;
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+
         gameViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(gameViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // TODO: add card art here? (if time allows)
+        // TODO: add card art here?
 
         JPanel buttons = new JPanel();
         swap = new JButton(gameViewModel.SWAP_BUTTON_LABEL);
@@ -47,25 +53,23 @@ public class GameView extends JPanel implements ActionListener, PropertyChangeLi
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        // TODO: fix this
                         if (evt.getSource().equals(attack)) {
-                            AttackController.execute(signupViewModel.getState().getUsername(),
-                                    String.valueOf(signupViewModel.getState().getPassword()),
-                                    String.valueOf(signupViewModel.getState().getRepeatPassword()));
+                            gameController.executeAttack(playerOne, playerTwo);
                         }
                     }
                 }
         );
-        swap.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(swap)) {
-                            // TODO: fill this in (call swapController.execute)
-                        }
-                    }
-                }
-        );
+        //TODO: finish this
+//        swap.addActionListener(
+//                new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(swap)) {
+//                            gameController.executeSwap(playerOne, playerTwo);
+//                        }
+//                    }
+//                }
+//        );
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.

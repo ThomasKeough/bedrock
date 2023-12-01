@@ -1,11 +1,15 @@
 package use_cases.game;
 
-import entities.Card;
-import entities.Deck;
-import entities.GameCard;
-import entities.Player;
+import entities.*;
+import interface_adapters.attack.AttackController;
+import use_cases.attack.AttackInputBoundary;
+import use_cases.attack.AttackInputData;
+import use_cases.attack.AttackInteractor;
+import use_cases.swap.SwapInteractor;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameInteractor implements GameInputBoundary {
@@ -14,33 +18,41 @@ public class GameInteractor implements GameInputBoundary {
 
     final GameOutputBoundary gameOutputBoundary;
 
+
+
+
     public GameInteractor(GameDataAccessInterface gameDataAccessInterface,
                             GameOutputBoundary gameOutputBoundary) {
         this.gameDataAccessInterface = gameDataAccessInterface;
         this.gameOutputBoundary = gameOutputBoundary;
     }
 
+
+    // TODO: add to notes (callign controller here might vioalte SOLID?)
+    public void executeAttack(GameInputData gameInputData, AttackInteractor attackInteractor) {
+        // TODO: need active GamePokemon here
+
+        AttackInputData attackInputData = new AttackInputData(..., ...);
+        attackInteractor.execute(attackInputData);
+    }
+
+    public void executeSwap(GameInputData gameInputData, SwapInteractor swapInteractor) {
+        ...
+    }
+
     @Override
     public Player execute(GameInputData gameInputData) {
-        // INITIALIZE GAMECARDS
         Player playerOne = gameInputData.getPlayerOne();
         Player playerTwo = gameInputData.getPlayerTwo();
 
-        Deck deckOne = playerOne.getCurrentDeck();
-        Deck deckTwo = playerTwo.getCurrentDeck();
-
-        ArrayList<GameCard> gameCardsOne = new ArrayList<>();
-        ArrayList<GameCard> gameCardsTwo = new ArrayList<>();
-
-        for (Card card : deckOne.getCards()) {
-            gameCardsOne.add(new GameCard(card));
-        }
-        for (Card card : deckTwo.getCards()) {
-            gameCardsTwo.add(new GameCard(card));
-        }
+        // INITIALIZE GAMECARDS
+        ArrayList<GameCard> gameCardsOne = initializeCards(playerOne);
+        ArrayList<GameCard> gameCardsTwo = initializeCards(playerTwo);
 
         Integer winner;
 
+
+        //TODO: fix this so that it's cleaner
         Random random = new Random();
         // if coinFlip = 0: player 1 goes first
         // else:  player 2 goes first
@@ -63,14 +75,25 @@ public class GameInteractor implements GameInputBoundary {
                 return playerOne;
             }
         }
-//
-//        if (winner == 0) {
-//
-//        }
 
         // TODO: write up a presenter.prepareSuccessView()
     }
-    // return player or integer?
+
+    public ArrayList<GameCard> initializeCards(Player player) {
+        // INITIALIZES GAMECARD OBJECTS GIVEN THE USERS
+        Deck deckOne = player.getCurrentDeck();
+
+        ArrayList<GameCard> gameCards = new ArrayList<>();
+
+        for (Card card : deckOne.getCards()) {
+            gameCards.add(new GameCard(card));
+        }
+        return gameCards;
+    }
+
+//    public
+
+
     public Integer runGameLoop(ArrayList<GameCard> gameCardsFirst, ArrayList<GameCard> gameCardsSecond) {
 
         GameCard activeOne;
@@ -84,7 +107,9 @@ public class GameInteractor implements GameInputBoundary {
                 if (gameCardsSecond.get(i).isOnField()) {
                     activeTwo = gameCardsSecond.get(i);
                 }
-            } // loop initializes active cards
+                // activeOne and activeTwo are the active pokemons on the battlefield
+
+                // TODO: implement logic here
 
 
 
