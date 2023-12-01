@@ -17,4 +17,6 @@ public interface GamePokemon {
     public void faint();
 
     public void takeDamage(Integer damage);
+
+    public void swap();
 }
