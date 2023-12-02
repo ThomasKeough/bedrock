@@ -1,3 +1,5 @@
+package app;
+
 import data.CardDAO;
 import data.TradingCardGameDAO;
 import entities.Collection;

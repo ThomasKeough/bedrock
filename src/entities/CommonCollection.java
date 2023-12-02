@@ -19,10 +19,12 @@ public class CommonCollection implements Collection {
 
     public CommonCollection() {
         this.limit = 100;
+        this.cards = new ArrayList<>();
     }
 
     public CommonCollection(Integer limit) {
         this.limit = limit;
+        this.cards = new ArrayList<>();
     }
 
 
