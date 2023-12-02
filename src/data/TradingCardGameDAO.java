@@ -6,38 +6,30 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_cases.collection.CollectionDataAccessInterface;
-import java.io.File;
-import java.io.IOException;
+import use_cases.wonder_trade.WonderTradeDataAccessInterface;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 
-public class TradingCardGameDAO implements CollectionDataAccessInterface{
-    private final File csvFile;
+public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
+
+    // Specify the CSV file path
+    File csvFile = new File("circulating_pokemon_cards.csv");
+
     // the current set being used for the game, sv3pt5 is ID for set Scarlet Violet 151
-    String setID = "sv3pt5";
+    private static String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
     private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
 
-    // constructor
-    public TradingCardGameDAO(File csvFile) {
-        this.csvFile = csvFile;
-    }
-
-    // for testing
-    public static void main(String[] args) {
-        // Specify the CSV file path
-        File csvFile = new File("pokemon_info.csv");
-
+    public static void fetch_and_write_data() {
         // Create an instance of TradingCardGameDAO
-        TradingCardGameDAO dao = new TradingCardGameDAO(csvFile);
+        TradingCardGameDAO dao = new TradingCardGameDAO();
 
         // Call the getAllCards method to fetch data from the API and write to the CSV file
-        dao.getAllCards("sv3pt5");
+        dao.writeAllCards(setID);
 
         System.out.println("API data has been fetched and written to the CSV file.");
     }
@@ -49,7 +41,7 @@ public class TradingCardGameDAO implements CollectionDataAccessInterface{
 
     // should not store all card data, instead only store: pokemonName, id, type, isHighHP (110+), isSpecial(ex/mega),
 
-    public void getAllCards(String setID){
+    public void writeAllCards(String setID){
         // Create a map to store the information
         Map<String, String> pokemonInfoMap = new HashMap<>();
 
@@ -98,7 +90,7 @@ public class TradingCardGameDAO implements CollectionDataAccessInterface{
 
                     // Store the information in the map
                     // Write the information to a CSV file
-                    writeDataToCSV("circulating_pokemon_cards.csv", id, name, type, isHighHp, isSpecial);
+                    writeDataToCSV(csvFile.getName(), id, name, type, isHighHp, isSpecial);
                 }
             }
         } catch (IOException | JSONException e) {
@@ -117,6 +109,30 @@ public class TradingCardGameDAO implements CollectionDataAccessInterface{
             System.err.println("Something went wrong - CSV data not written correctly.");
             e.printStackTrace(); // Print the stack trace for debugging purposes
         }
+    }
+
+    public String fetch_similar_card(boolean isHighHp, boolean isSpecial){
+        String line = "";
+        String csvFile = this.csvFile.getName(); // replace with your file path
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] card = line.split(",");
+
+                // check if the line matches the parameters
+                boolean lineIsHighHp = Boolean.parseBoolean(card[3].trim());
+                boolean lineIsSpecial = Boolean.parseBoolean(card[4].trim());
+
+                if (lineIsHighHp == isHighHp && lineIsSpecial == isSpecial) {
+                    return card[0];  // return the card ID
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "No matching card found";
     }
 
 }
