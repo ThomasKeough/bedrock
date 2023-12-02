@@ -61,10 +61,10 @@ public class AttackDemo {
         GamePokemon snorlax = new GameCard(cardFactory.create("sv3pt5-143","Snorlax"));
 
         AttackDemo attack = new AttackDemo(blastoise, snorlax);
-        AttackDemo weakAttack = new AttackDemo(blastoise, charizard);
-
         attack.demoAttack();
         System.out.println("\n========\n");
+
+        AttackDemo weakAttack = new AttackDemo(blastoise, charizard);
         weakAttack.demoAttack();
     }
 
