@@ -1,9 +1,10 @@
 package use_cases.display_card;
 
 import entities.CommonCard;
+import entities.Card;
 
 public class DisplayCardInputData {
-    private final CommonCard card;
+    private final Card card;
 
     public DisplayCardInputData(CommonCard card) {
         this.card = card;
