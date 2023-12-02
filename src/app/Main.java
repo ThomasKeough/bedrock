@@ -1,5 +1,8 @@
 import data.CardDAO;
+import data.TradingCardGameDAO;
+import entities.Collection;
 import entities.CommonCardFactory;
+import entities.CommonCollection;
 import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
@@ -31,11 +34,11 @@ public class Main {
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
 
-//         TradingCardGameDAO dao = new TradingCardGameDAO();
-//         dao.fetch_and_write_data();
+        TradingCardGameDAO dao = new TradingCardGameDAO();
+        dao.fetch_and_write_data();
 
-//         CommonCollection collection = new CommonCollection();
-//         collection.initializeCollection();
+        CommonCollection collection = new CommonCollection();
+        collection.initializeCollection();
       
         CardDAO userDataAccessObject;
         try {

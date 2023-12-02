@@ -12,7 +12,7 @@ public class DisplayCardController {
     }
 
     public void execute(CommonCard card) {
-        DisplayCardInputData displayCardInputData = new DisplayCardInputData(CommonCard card);
+        DisplayCardInputData displayCardInputData = new DisplayCardInputData(card);
         displayCardInputBoundary.execute(displayCardInputData);
     }
 }

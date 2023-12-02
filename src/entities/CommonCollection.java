@@ -11,6 +11,12 @@ public class CommonCollection implements Collection {
     private Integer limit;
     private ArrayList<Card> cards;
 
+    // For deck
+    public CommonCollection(ArrayList<Card> cards, int i) {
+        this.cards = cards;
+        limit = i;
+    }
+
     public CommonCollection() {
         this.limit = 100;
     }
@@ -18,6 +24,7 @@ public class CommonCollection implements Collection {
     public CommonCollection(Integer limit) {
         this.limit = limit;
     }
+
 
     public void initializeCollection() {
         // Read the data from the CSV file
