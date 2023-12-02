@@ -26,7 +26,7 @@ class CommonCollectionTest {
             cards.add(card);
         }
         this.cards = cards;
-        collection = new CommonCollection(cards);
+        collection = new CommonCollection(cards, 100);
     }
 
     @Test
