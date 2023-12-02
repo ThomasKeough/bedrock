@@ -11,8 +11,8 @@ import use_cases.attack.AttackInteractor;
 import use_cases.attack.AttackOutputBoundary;
 
 public class AttackDemo {
-    private GamePokemon attacker;
-    private GamePokemon defender;
+    private final GamePokemon attacker;
+    private final GamePokemon defender;
 
     public AttackDemo(GamePokemon attacker, GamePokemon defender) {
         this.attacker = attacker;
