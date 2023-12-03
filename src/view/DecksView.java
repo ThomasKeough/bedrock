@@ -6,6 +6,8 @@ import entities.Deck;
 import interface_adapters.DecksViewModel;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.delete_deck.DeleteDeckController;
+import interface_adapters.delete_deck.DeleteDeckState;
+import interface_adapters.delete_deck.DeleteDeckViewModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -23,11 +25,13 @@ import static view.ImageResizer.resizeIcon;
 public class DecksView extends JPanel implements PropertyChangeListener {
     public final String viewName = "Decks Menu";
     private final DecksViewModel decksViewModel;
+    private final DeleteDeckViewModel deleteDeckViewModel;
     private final ViewManagerModel viewManagerModel;
     private final HashMap<String, Deck> decks;
     private final DeleteDeckController deleteDeckController;
     private Deck selectedDeck = null;
     final JList<Deck> deckJList;
+    final DefaultListModel<Deck> deckListModel;
     final JScrollPane scrollPane;
     final JButton back;
     final JButton edit;
@@ -35,13 +39,20 @@ public class DecksView extends JPanel implements PropertyChangeListener {
     final JButton createNewDeck;
 
     public DecksView(DeleteDeckController deleteDeckController, DecksViewModel decksViewModel,
-                     ViewManagerModel viewManagerModel) {
+                     DeleteDeckViewModel deleteDeckViewModel, ViewManagerModel viewManagerModel) {
         this.deleteDeckController = deleteDeckController;
         this.decksViewModel = decksViewModel;
+        this.deleteDeckViewModel = deleteDeckViewModel;
         this.viewManagerModel = viewManagerModel;
         this.decks = Main.player.getDecks();
+        deleteDeckViewModel.addPropertyChangeListener(this);
 
         deckJList = new JList<Deck>(decks.values().toArray(new Deck[0]));
+
+        deckListModel = new DefaultListModel<>();
+        deckListModel.addAll(decks.values());
+        deckJList.setModel(deckListModel);
+
 
         // Create a JScrollPane to enable scrolling
         scrollPane = new JScrollPane(deckJList);
@@ -121,6 +132,23 @@ public class DecksView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("delete deck")) {
+            DeleteDeckState state = (DeleteDeckState) evt.getNewValue();
+            Deck deletedDeck = state.getDeck();
+            if (!state.getUseCaseFailed()) {
+                // Delete Use Case Passes
+                DefaultListModel<Deck> listModel = (DefaultListModel<Deck>) deckJList.getModel();
+                listModel.removeElement(deletedDeck);
 
+                deckJList.clearSelection();
+                edit.setEnabled(false);
+                delete.setEnabled(false);
+                createNewDeck.setEnabled(false);
+
+                JOptionPane.showMessageDialog(this, deletedDeck + " successfully deleted!");
+            } else {
+                JOptionPane.showMessageDialog(this, deletedDeck + " failed to delete!");
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ import interface_adapters.*;
 //import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.delete_deck.DeleteDeckController;
 import interface_adapters.delete_deck.DeleteDeckPresenter;
+import interface_adapters.delete_deck.DeleteDeckViewModel;
 import use_cases.delete_deck.DeleteDeckInputBoundary;
 import use_cases.delete_deck.DeleteDeckInteractor;
 import use_cases.delete_deck.DeleteDeckOutputBoundary;
@@ -43,6 +44,7 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
+        DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
 
 //        TradingCardGameDAO dao = new TradingCardGameDAO();
 //        dao.fetch_and_write_data();
@@ -69,10 +71,7 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DeleteDeckOutputBoundary deleteDeckPresenter = new DeleteDeckPresenter();
-        DeleteDeckInputBoundary deleteDeckInteractor = new DeleteDeckInteractor(deleteDeckPresenter);
-        DeleteDeckController deleteDeckController = new DeleteDeckController(deleteDeckInteractor);
-        DecksView decksView = new DecksView(deleteDeckController, decksViewModel, viewManagerModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
         views.add(decksView, decksView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);

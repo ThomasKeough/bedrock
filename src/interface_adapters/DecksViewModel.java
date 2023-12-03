@@ -1,6 +1,7 @@
 package interface_adapters;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class DecksViewModel extends ViewModel {
     public final String TITLE_LABEL =  "Decks Menu View";
@@ -8,6 +9,8 @@ public class DecksViewModel extends ViewModel {
     public final String EDIT_DECK_BUTTON_LABEL = "Edit Deck";
     public final String CREATE_NEW_DECK_BUTTON_LABEL = "Create New Deck";
     public final String DELETE_DECK_BUTTON_LABEL = "Delete Deck";
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
     public DecksViewModel() {
         super("decks menu");
     }
