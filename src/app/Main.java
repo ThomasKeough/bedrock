@@ -4,9 +4,8 @@ import data.CardDAO;
 import data.TradingCardGameDAO;
 import entities.*;
 import interface_adapters.*;
-//import interface_adapters.add_to_collection.AddToCollectionViewModel;
-//import interface_adapters.build_card.BuildCardViewModel;
-//import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
 
 import javax.imageio.ImageIO;
@@ -15,14 +14,14 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static Player player;
     public static void main(String[] args) {
         TradingCardGameDAO.fetch_and_write_data();
 
-        //        player = createExamplePlayer();
-        player = createNormalPlayer();
+        player = createExamplePlayer();
 
         JFrame application = new JFrame("Pokemon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -40,6 +39,8 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
+        DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
+        BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
       
         CardDAO userDataAccessObject;
         try {
@@ -60,8 +61,11 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = new DecksView(decksViewModel, viewManagerModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
         views.add(decksView, decksView.viewName);
+
+        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
+        views.add(buildDeckView, buildDeckView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
@@ -97,27 +101,15 @@ public class Main {
         cards.add(five);
         cards.add(six);
 
-        Collection collection = new CommonCollection(cards, 6);
-        Deck deck = new CommonDeck(one, two, three, four, five, six);
-
-        return new CommonPlayer("Tester", deck, collection, null);
-    }
-
-    public static Player createNormalPlayer() {
-        CommonCardFactory commonCardFactory = new CommonCardFactory();
-
-        // need to modify to have initial deck be randomly assigned
-        Card one = commonCardFactory.create("sv3pt5-202", "Zapdos ex");
-        Card two = commonCardFactory.create("sv3pt5-179", "Mr. Mime");
-        Card three = commonCardFactory.create("sv3pt5-176", "Poliwhirl");
-        Card four = commonCardFactory.create("sv3pt5-193", "Mew ex");
-        Card five = commonCardFactory.create("sv3pt5-131", "Lapras");
-        Card six = commonCardFactory.create("sv3pt5-143", "Snorlax");
-
         Collection collection = new CommonCollection();
         collection.initializeCollection();
-        Deck deck = new CommonDeck(one, two, three, four, five, six);
+        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
-        return new CommonPlayer("Player", deck, collection, null);
+        HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
+        Player player = new CommonPlayer("Tester", deck, collection, decks);
+        player.addDeck("test deck", deck);
+
+        return player;
     }
 }
