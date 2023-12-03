@@ -25,7 +25,7 @@ public class WonderTradeInteractor implements WonderTradeInputBoundary {
         String replacement_card_id = wonderTradeDAO.fetch_similar_card(card.isHighHp(), card.isSpecial());
 
         if (Objects.equals(replacement_card_id, "No matching card found")) {
-            wonderTradePresenter.prepareFailView("No matching card found");
+            wonderTradePresenter.prepareFailView("Wonder Trade failed. No trade partner was found.");
         }
         else {
             try {

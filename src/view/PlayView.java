@@ -14,6 +14,6 @@ public class PlayView extends JPanel {
         this.playViewModel = playViewModel;
         this.viewManagerModel = viewManagerModel;
 
-        // TODO: Implement PayView
+        // TODO: Implement PlayView
     }
 }

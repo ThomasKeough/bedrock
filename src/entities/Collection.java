@@ -6,4 +6,6 @@ public interface Collection {
     ArrayList<Card> getCards();
     Integer getLimit();
     Boolean atLimit();
+
+    void initializeCollection();
 }

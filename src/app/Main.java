@@ -19,7 +19,10 @@ import java.util.ArrayList;
 public class Main {
     public static Player player;
     public static void main(String[] args) {
-        player = createExamplePlayer();
+        TradingCardGameDAO.fetch_and_write_data();
+
+        //        player = createExamplePlayer();
+        player = createNormalPlayer();
 
         JFrame application = new JFrame("Pokemon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,12 +40,6 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
-
-        TradingCardGameDAO dao = new TradingCardGameDAO();
-        dao.fetch_and_write_data();
-
-        CommonCollection collection = new CommonCollection();
-        collection.initializeCollection();
       
         CardDAO userDataAccessObject;
         try {
@@ -104,5 +101,23 @@ public class Main {
         Deck deck = new CommonDeck(one, two, three, four, five, six);
 
         return new CommonPlayer("Tester", deck, collection, null);
+    }
+
+    public static Player createNormalPlayer() {
+        CommonCardFactory commonCardFactory = new CommonCardFactory();
+
+        // need to modify to have initial deck be randomly assigned
+        Card one = commonCardFactory.create("sv3pt5-202", "Zapdos ex");
+        Card two = commonCardFactory.create("sv3pt5-179", "Mr. Mime");
+        Card three = commonCardFactory.create("sv3pt5-176", "Poliwhirl");
+        Card four = commonCardFactory.create("sv3pt5-193", "Mew ex");
+        Card five = commonCardFactory.create("sv3pt5-131", "Lapras");
+        Card six = commonCardFactory.create("sv3pt5-143", "Snorlax");
+
+        Collection collection = new CommonCollection();
+        collection.initializeCollection();
+        Deck deck = new CommonDeck(one, two, three, four, five, six);
+
+        return new CommonPlayer("Player", deck, collection, null);
     }
 }
