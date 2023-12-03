@@ -7,6 +7,11 @@ import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
 //import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.delete_deck.DeleteDeckController;
+import interface_adapters.delete_deck.DeleteDeckPresenter;
+import use_cases.delete_deck.DeleteDeckInputBoundary;
+import use_cases.delete_deck.DeleteDeckInteractor;
+import use_cases.delete_deck.DeleteDeckOutputBoundary;
 import view.*;
 
 import javax.imageio.ImageIO;
@@ -64,7 +69,10 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = new DecksView(decksViewModel, viewManagerModel);
+        DeleteDeckOutputBoundary deleteDeckPresenter = new DeleteDeckPresenter();
+        DeleteDeckInputBoundary deleteDeckInteractor = new DeleteDeckInteractor(deleteDeckPresenter);
+        DeleteDeckController deleteDeckController = new DeleteDeckController(deleteDeckInteractor);
+        DecksView decksView = new DecksView(deleteDeckController, decksViewModel, viewManagerModel);
         views.add(decksView, decksView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);

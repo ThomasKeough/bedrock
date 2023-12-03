@@ -14,4 +14,6 @@ public interface Player {
     HashMap<String, Deck> getDecks();
 
     void addDeck(String name, Deck deck);
+
+    boolean removeDeck(Deck deckToRemove);
 }

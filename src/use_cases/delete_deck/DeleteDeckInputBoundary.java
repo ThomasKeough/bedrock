@@ -1,5 +1,5 @@
 package use_cases.delete_deck;
 
-public class DeleteDeckInputBoundary {
+public interface DeleteDeckInputBoundary {
     void execute(DeleteDeckInputData inputData);
 }
