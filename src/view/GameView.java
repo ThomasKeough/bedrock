@@ -16,7 +16,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class GameView extends JPanel  { //, PropertyChangeListener {
-    public final String viewName = "game";
+    public final String viewName = "Game Menu";
 
     private final GameViewModel gameViewModel;
     private final ViewManagerModel viewManagerModel;

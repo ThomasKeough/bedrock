@@ -40,20 +40,23 @@ public class PlayView extends JPanel {
 
         start = new JButton(playViewModel.START_BUTTON_LABEL);
         buttons.add(start);
+
+        back = new JButton(playViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
+
+        this.add(buttons);
+
         start.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(start)) {
-                            viewManagerModel.setActiveView("Game"); // TODO: check if the string is correct
+                            viewManagerModel.setActiveView("Game Menu");
                             viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
         );
-
-        back = new JButton(playViewModel.BACK_BUTTON_LABEL);
-        buttons.add(back);
         back.addActionListener(
                 new ActionListener() {
                     @Override

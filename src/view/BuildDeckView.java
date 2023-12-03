@@ -6,7 +6,6 @@ import entities.Collection;
 import interface_adapters.ViewManagerModel;
 import view.ViewModel;
 
-import interface_adapters.ViewModel;
 import interface_adapters.build_deck.BuildDeckController;
 
 import interface_adapters.build_deck.BuildDeckViewModel;
