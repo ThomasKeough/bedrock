@@ -4,6 +4,12 @@ import data.CardDAO;
 import data.TradingCardGameDAO;
 import entities.*;
 import interface_adapters.*;
+//import interface_adapters.add_to_collection.AddToCollectionViewModel;
+//import interface_adapters.build_card.BuildCardViewModel;
+//import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.wonder_trade.WonderTradeController;
+import interface_adapters.wonder_trade.WonderTradeViewModel;
+import use_cases.wonder_trade.WonderTradeInputBoundary;
 import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
@@ -39,6 +45,7 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
+
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
         BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
       
