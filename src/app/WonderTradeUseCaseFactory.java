@@ -18,11 +18,7 @@ public class WonderTradeUseCaseFactory {
     public static WonderTradeController createWonderTradeUseCase(CollectionViewModel collectionViewModel,
                                                                  WonderTradeDataAccessInterface wonderTradeDataAccessObject)
     {
-
-        // Notice how we pass this method's parameters to the Presenter.
         WonderTradeOutputBoundary wonderTradeOutputBoundary = new WonderTradePresenter(collectionViewModel);
-
-
         WonderTradeInputBoundary wonderTradeInteractor = new WonderTradeInteractor(wonderTradeOutputBoundary, wonderTradeDataAccessObject);
 
         return new WonderTradeController(wonderTradeInteractor);

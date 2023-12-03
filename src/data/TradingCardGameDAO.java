@@ -19,7 +19,7 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
     public static File csvFile = new File("circulating_pokemon_cards.csv");
 
     // the current set being used for the game, our default is sv3pt5, but feel free to change to any eligible set name
-    private static String setID = "bw10";
+    private static String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
     private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
 
