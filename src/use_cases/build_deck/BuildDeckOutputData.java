@@ -7,9 +7,9 @@ public class BuildDeckOutputData {
     private String deckName;
     private boolean useCaseFailed;
 
-    public BuildDeckOutputData(Deck deck, boolean useCaseFailed) {
+    public BuildDeckOutputData(Deck deck, String deckName, boolean useCaseFailed) {
         this.deck = deck;
-        this.deckName = deck.getDeckName();
+        this.deckName = deckName;
         this.useCaseFailed = useCaseFailed;
     }
 
