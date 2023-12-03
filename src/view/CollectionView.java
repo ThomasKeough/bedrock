@@ -7,6 +7,7 @@ import entities.Card;
 import entities.Collection;
 import interface_adapters.CollectionViewModel;
 import interface_adapters.ViewManagerModel;
+import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.wonder_trade.WonderTradeController;
 import interface_adapters.wonder_trade.WonderTradeState;
 import use_cases.wonder_trade.WonderTradeDataAccessInterface;
@@ -24,10 +25,12 @@ import static view.ImageIconCreator.createImageIcon;
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class CollectionView extends JPanel {
+public class CollectionView extends JPanel{
     public final String viewName = "Collection Menu";
     private ViewManagerModel viewManagerModel;
     private final CollectionViewModel collectionViewModel;
+
+    private BuildDeckViewModel buildDeckViewModel;
     private List<Card> cards;
     final JButton back;
 
@@ -88,7 +91,7 @@ public class CollectionView extends JPanel {
                                 JPanel panel =  new JPanel(new BorderLayout());
                                 panel.add(cardImageLabel);
 
-                                Object[] options = {"OK", "WonderTrade"};
+                                Object[] options = {"Exit", "WonderTrade"};
 
                                 int result = JOptionPane.showOptionDialog(
                                         cardList,
@@ -97,7 +100,7 @@ public class CollectionView extends JPanel {
                                         JOptionPane.DEFAULT_OPTION,
                                         JOptionPane.PLAIN_MESSAGE,
                                         null,  // No custom icon
-                                        options,  // No custom options
+                                        options,
                                         null);  // Default initial value
 
                                 if (result == 1) {
@@ -112,6 +115,9 @@ public class CollectionView extends JPanel {
 
                                     // back end first
                                     Main.player.getCollection().replace_card(old_index, returnedCard);
+
+                                    // update the collection in ViewManagerModel
+                                    viewManagerModel.updateCollection(card_index, returnedCard);
 
                                     // front end, update the JList with the new card
                                     cards.set(card_index, returnedCard);

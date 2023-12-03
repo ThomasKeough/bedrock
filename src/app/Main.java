@@ -30,7 +30,7 @@ public class Main {
 
         player = createExamplePlayer();
 
-        JFrame application = new JFrame("Pokemon");
+        JFrame application = new JFrame("Pokémon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -70,10 +70,11 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel,
+                deleteDeckViewModel, buildDeckViewModel);
         views.add(decksView, decksView.viewName);
 
-        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
+        BuildDeckView buildDeckView = BuildDeckUseCaseFactory.create(viewManagerModel, buildDeckViewModel);
         views.add(buildDeckView, buildDeckView.viewName);
 
         GameView gameView = new GameView(gameViewModel, viewManagerModel);
@@ -114,7 +115,7 @@ public class Main {
         cards.add(six);
 
         Collection collection = new CommonCollection();
-        collection.initializeCollection();
+        collection.initializeCollection(false);
         Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
         HashMap<String, Deck> decks = new HashMap<String, Deck>();

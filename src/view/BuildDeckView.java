@@ -2,28 +2,38 @@ package view;
 
 import app.Main;
 import entities.Card;
+import entities.Collection;
 import interface_adapters.ViewManagerModel;
 import view.ViewModel;
+
+import interface_adapters.ViewModel;
+import interface_adapters.build_deck.BuildDeckController;
+
 import interface_adapters.build_deck.BuildDeckViewModel;
+import use_cases.build_deck.BuildDeckInputData;
 
 import javax.print.attribute.standard.JobHoldUntil;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class BuildDeckView extends JPanel {
+public class BuildDeckView extends JPanel{
     public final String viewName = "Build Deck Menu";
     private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final List<Card> cards;
+
+    private final BuildDeckController buildDeckController;
+    public static List<Card> cards;
     private final List<Integer> highlightedRows = new ArrayList<>();
     private Card selectedCard = null;
     private List<Card> selectedCards;
@@ -31,12 +41,14 @@ public class BuildDeckView extends JPanel {
     final JButton addCard;
     final JButton removeCard;
     final JButton buildDeck;
-    final JList<Card> cardJList;
+    public static JList<Card> cardJList;
 
-    public BuildDeckView(BuildDeckViewModel buildDeckViewModel, ViewManagerModel viewManagerModel) {
+    public BuildDeckView(BuildDeckViewModel buildDeckViewModel, ViewManagerModel viewManagerModel,
+                         BuildDeckController buildDeckController) {
         this.buildDeckViewModel = buildDeckViewModel;
         this.viewManagerModel = viewManagerModel;
         this.cards = Main.player.getCollection().getCards();
+        this.buildDeckController = buildDeckController;
         this.selectedCards = new ArrayList<Card>();
 
         // Create a JList with the items
@@ -105,7 +117,11 @@ public class BuildDeckView extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(buildDeck)) {
-
+                            String deckName = JOptionPane.showInputDialog(null,
+                                    "What would you like to name this deck?");
+                            buildDeckController.execute(Main.player, deckName, selectedCards.get(0),
+                                    selectedCards.get(1), selectedCards.get(2), selectedCards.get(3),
+                                    selectedCards.get(4), selectedCards.get(5));
                         }
                     }
                 }
@@ -118,10 +134,13 @@ public class BuildDeckView extends JPanel {
                             // Set activeView to HubView
                             viewManagerModel.setActiveView("Decks Menu");
                             viewManagerModel.firePropertyChanged();
+                            cardJList.setListData(cards.toArray(new Card[0]));
+
                         }
                     }
                 }
         );
+
         cardJList.addListSelectionListener(
                 new ListSelectionListener() {
                     @Override
