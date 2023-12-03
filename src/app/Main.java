@@ -4,6 +4,7 @@ import data.CardDAO;
 import data.TradingCardGameDAO;
 import entities.*;
 import interface_adapters.*;
+import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
 
@@ -37,6 +38,7 @@ public class Main {
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
+        BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
 
 //        TradingCardGameDAO dao = new TradingCardGameDAO();
 //        dao.fetch_and_write_data();
@@ -65,6 +67,9 @@ public class Main {
 
         DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
         views.add(decksView, decksView.viewName);
+
+        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
+        views.add(buildDeckView, buildDeckView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
