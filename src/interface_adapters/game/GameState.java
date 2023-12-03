@@ -1,73 +1,35 @@
 package interface_adapters.game;
 
+import entities.Game;
 import entities.GameCard;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameState {
-    // TODO: implement this file
     private GameCard activePokemon = null;
     private ArrayList<GameCard> faintedPokemons = new ArrayList<>();
-    private String password = "";
-    private String passwordError = null;
-    private String repeatPassword = "";
-    private String repeatPasswordError = null;
 
     public GameState(GameState copy) {
-        username = copy.username;
-        usernameError = copy.usernameError;
-        password = copy.password;
-        passwordError = copy.passwordError;
-        repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
+        activePokemon = copy.activePokemon;
+        faintedPokemons = copy.faintedPokemons;
     }
     public GameState() {}
 
-    public String getUsername() {
-        return username;
+    public GameCard getActivePokemon() {
+        return activePokemon;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public ArrayList<GameCard> getFaintedPokemons() {
+        return faintedPokemons;
     }
 
-    public String getPassword() {
-        return password;
+    public void setActivePokemon(GameCard activePokemon) {
+        this.activePokemon = activePokemon;
     }
 
-    public String getPasswordError() {
-        return passwordError;
+    public void setFaintedPokemons(ArrayList<GameCard> faintedPokemons) {
+        this.faintedPokemons = faintedPokemons;
     }
 
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
-    }
 }

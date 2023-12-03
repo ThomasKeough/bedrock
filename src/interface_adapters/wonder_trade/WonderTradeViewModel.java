@@ -1,7 +1,7 @@
 package interface_adapters.wonder_trade;
 
 import entities.Card;
-import interface_adapters.ViewModel;
+import view.ViewModel;
 import interface_adapters.add_to_collection.AddToCollectionState;
 
 import java.beans.PropertyChangeListener;

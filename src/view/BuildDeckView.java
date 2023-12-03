@@ -3,7 +3,7 @@ package view;
 import app.Main;
 import entities.Card;
 import interface_adapters.ViewManagerModel;
-import interface_adapters.ViewModel;
+import view.ViewModel;
 import interface_adapters.build_deck.BuildDeckViewModel;
 
 import javax.print.attribute.standard.JobHoldUntil;

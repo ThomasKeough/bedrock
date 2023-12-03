@@ -23,16 +23,10 @@ public class WinView extends JPanel implements ActionListener {
 
     public WinView(WinViewModel winViewModel) {
         this.winViewModel = winViewModel;
-        this.winViewModel.addPropertyChangeListener(this);
+        this.winViewModel.addPropertyChangeListener((PropertyChangeListener) this);
         //TODO: FIX THIS
 
         JLabel title = new JLabel(winViewModel.MESSAGE);
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-//        LabelTextPanel usernameInfo = new LabelTextPanel(
-//                new JLabel("Username"), usernameInputField);
-//        LabelTextPanel passwordInfo = new LabelTextPanel(
-//                new JLabel("Password"), passwordInputField);
 
         JPanel buttons = new JPanel();
         back = new JButton(winViewModel.BACK_BUTTON_LABEL);
@@ -51,38 +45,4 @@ public class WinView extends JPanel implements ActionListener {
         System.out.println(e.getActionCommand());
     }
 
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//
-//    }
-
-
-//    public final String TITLE_LABEL = "Win View";
-//    public final String MESSAGE = "Congratulations! You won!";
-//
-//    private GameState state = new GameState();
-//
-//    public WinViewModel() {
-//        super("win view");
-//    }
-//
-//    public void setState(GameState state) {
-//        this.state = state;
-//    }
-//
-//    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-//
-//    // This is what the Signup Presenter will call to let the ViewModel know
-//    // to alert the View
-//    public void firePropertyChanged() {
-//        support.firePropertyChange("state", null, this.state);
-//    }
-//
-//    public void addPropertyChangeListener(PropertyChangeListener listener) {
-//        support.addPropertyChangeListener(listener);
-//    }
-//
-//    public LoginState getState() {
-//        return state;
-//    }
 }

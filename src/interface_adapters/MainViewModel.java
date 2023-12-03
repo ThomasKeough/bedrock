@@ -1,5 +1,7 @@
 package interface_adapters;
 
+import view.ViewModel;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

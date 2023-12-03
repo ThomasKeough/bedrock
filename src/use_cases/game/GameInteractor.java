@@ -46,7 +46,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
         if (attackButtonPressed) {
             handleAttack(activeOne, activeTwo);
             resetAttackButton(); // Reset the button state
-            // TODO: update GameState here
+            // TODO: update GameState here?
         }
 
 //        if (swapButtonPressed) {
@@ -152,6 +152,7 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
 
             onGameStateUpdate(activeOne, activeTwo);
             // TODO: do we need onGameStateUpdate(activeTwo, activeOne); for the second player's move?
+            onGameStateUpdate(activeTwo, activeOne);
 
                 // CHECKS IF A POKEMON HAS FAINTED - IF IT HAS, REMOVE FROM THE LIST
                 for (int j = 0; j < gameCardsFirst.size(); j++) { // since both arrays equal size, we only need 1

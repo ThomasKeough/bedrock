@@ -17,6 +17,14 @@ public class CommonPlayer implements Player {
         this.playerDecks = playerDecks;
     }
 
+    // SAMPLE CONSTRUCTOR FOR GAMEINTERACTORTESTS
+    public CommonPlayer(String name, Deck currentDeck) {
+        this.name = name;
+        this.currentDeck = currentDeck;
+        this.playerDecks = new HashMap<String, Deck>();
+        this.playerDecks.put("Sample", currentDeck);
+    }
+
     @Override
     public String getName() {
         return this.name;

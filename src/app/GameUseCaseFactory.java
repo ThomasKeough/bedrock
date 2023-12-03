@@ -29,7 +29,7 @@ public class GameUseCaseFactory {
 
         try {
             GameController gameController = createGameUseCase(viewManagerModel, gameViewModel, winViewModel);
-            return new GameView(gameController, gameViewModel);
+            return new GameView(gameViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed opening cards file");
         }
@@ -37,9 +37,8 @@ public class GameUseCaseFactory {
     }
 
     private static GameController createGameUseCase(ViewManagerModel viewManagerModel, GameViewModel gameViewModel, WinViewModel winViewModel) throws IOException {
-        GameDataAccessInterface gameDataAccessObject = new TradingCardGameDAO(new File("./cards.csv"));
+        GameDataAccessInterface gameDataAccessObject = new TradingCardGameDAO();
 
-        // Notice how we pass this method's parameters to the Presenter.
         GameOutputBoundary gameOutputBoundary = new GamePresenter(viewManagerModel, winViewModel, gameViewModel);
         AttackOutputBoundary attackOutputBoundary = new AttackPresenter();
 
