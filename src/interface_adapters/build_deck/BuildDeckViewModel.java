@@ -1,6 +1,6 @@
 package interface_adapters.build_deck;
 
-import interface_adapters.ViewModel;
+import view.ViewModel;
 import interface_adapters.add_to_collection.AddToCollectionState;
 
 import java.beans.PropertyChangeListener;
