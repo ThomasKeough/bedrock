@@ -95,7 +95,7 @@ public class CollectionView extends JPanel{
                                 JPanel panel =  new JPanel(new BorderLayout());
                                 panel.add(cardImageLabel);
 
-                                Object[] options = {"Close Preview", "WonderTrade"};
+                                Object[] options = {"Exit", "WonderTrade"};
 
                                 int result = JOptionPane.showOptionDialog(
                                         cardList,
