@@ -4,6 +4,7 @@ import entities.Card;
 
 public class WonderTradeState {
     private Card card;
+    private int index;
 
     public WonderTradeState() {}
 
@@ -13,5 +14,16 @@ public class WonderTradeState {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public void setCardFetchError(String error) {
+    }
+
+    public void setIndex(int originalIndex){
+        index = originalIndex;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import data.TradingCardGameDAO;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,8 +19,9 @@ public class CommonCollection implements Collection {
         limit = i;
     }
 
+    // initialize collection with 30 random cards
     public CommonCollection() {
-        this.limit = 100;
+        this.limit = 25;
         this.cards = new ArrayList<>();
     }
 
@@ -40,10 +43,10 @@ public class CommonCollection implements Collection {
             e.printStackTrace();
         }
 
-        // Randomly pick necessary number of lines and call csv_to_card on each
+        // Randomly pick initialized amount of lines and call csv_to_card on each
         Random rand = new Random();
         for (int i = 0; i < limit; i++) {
-            int randomIndex = rand.nextInt(lines.size());
+            int randomIndex = rand.nextInt(TradingCardGameDAO.circulating_card_count());
             String randomLine = lines.get(randomIndex);
             csv_to_card(randomLine);
         }
@@ -59,6 +62,14 @@ public class CommonCollection implements Collection {
         Card card = factory.create(id, name);
 
         cards.add(card);
+    }
+
+    @Override
+    public void replace_card(int card_index, Card replacement_card)
+    {
+        // Replace the card at the specified index with the replacement card
+        cards.set(card_index, replacement_card);
+
     }
 
     public ArrayList<Card> getCards() {
