@@ -12,6 +12,7 @@ public class BuildDeckViewModel extends ViewModel {
     public final String ADD_CARD_BUTTON_LABEL = "Add Card";
     public final String REMOVE_CARD_BUTTON_LABEL = "Remove Card";
     public final String BUILD_DECK_BUTTON_LABEL = "Build Deck";
+    public final String DISPLAY_CARD_BUTTON_LABEL = "Display Card";
     private BuildDeckState state = new BuildDeckState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
