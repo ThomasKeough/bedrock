@@ -27,13 +27,13 @@ public class AttackInteractor implements AttackInputBoundary {
             Integer damage = getDamageValue(attack);
 
             // boost the damage value in accordance with weaknesses
-            Integer multipliedDamage = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
+            Integer multiplier = multiplyDamage(defenderWeaknesses, defenderResistances, attackerType, damage);
 
             // defender takes multiplied damage
-            defender.takeDamage(multipliedDamage);
+            defender.takeDamage(damage * multiplier);
 
             // attack succeeds
-            AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage!", defender.getName(), damage));
+            AttackOutputData attackOutputData = new AttackOutputData(String.format("%s took %d damage! (%d x %d)", defender.getName(), damage * multiplier, damage, multiplier));
             attackPresenter.prepareSuccessView(attackOutputData);
         }
         catch (Exception e) {
@@ -70,7 +70,6 @@ public class AttackInteractor implements AttackInputBoundary {
 
         }
 
-        Integer multipliedDamage = damage * multiplier;
-        return multipliedDamage;
+        return multiplier;
     }
 }
