@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CommonCollection implements Collection {
-    private Integer limit;
+    private Integer limit = 25;
     private ArrayList<Card> cards;
 
     // For deck
@@ -19,9 +19,7 @@ public class CommonCollection implements Collection {
         limit = i;
     }
 
-    // initialize collection with 30 random cards
     public CommonCollection() {
-        this.limit = 25;
         this.cards = new ArrayList<>();
     }
 
@@ -31,13 +29,16 @@ public class CommonCollection implements Collection {
     }
 
 
-    public void initializeCollection() {
+    public void initializeCollection(boolean onlySpecials) {
         // Read the data from the CSV file
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("circulating_pokemon_cards.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                lines.add(line);
+                String[] parts = line.split(",");
+                if (!onlySpecials || "true".equals(parts[4].trim())) {
+                    lines.add(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,10 +46,18 @@ public class CommonCollection implements Collection {
 
         // Randomly pick initialized amount of lines and call csv_to_card on each
         Random rand = new Random();
+        int lineSize = lines.size();
         for (int i = 0; i < limit; i++) {
-            int randomIndex = rand.nextInt(TradingCardGameDAO.circulating_card_count());
+//            int randomIndex = rand.nextInt(TradingCardGameDAO.circulating_card_count());
+            int randomIndex = rand.nextInt(lineSize);
             String randomLine = lines.get(randomIndex);
             csv_to_card(randomLine);
+
+            // If there are enough cards in circulation, remove the selected card from the list (sampling without replacement)
+            if (lineSize > limit) {
+                lines.remove(randomIndex);
+                lineSize--;
+            }
         }
     }
 

@@ -9,5 +9,5 @@ public interface Collection {
     Integer getLimit();
     Boolean atLimit();
 
-    void initializeCollection();
+    void initializeCollection(boolean onlySpecials);
 }

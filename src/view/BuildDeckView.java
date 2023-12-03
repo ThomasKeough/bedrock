@@ -2,6 +2,7 @@ package view;
 
 import app.Main;
 import entities.Card;
+import entities.Collection;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.ViewModel;
 import interface_adapters.build_deck.BuildDeckController;
@@ -13,20 +14,23 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class BuildDeckView extends JPanel {
+public class BuildDeckView extends JPanel{
     public final String viewName = "Build Deck Menu";
     private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
+
     private final BuildDeckController buildDeckController;
-    private final List<Card> cards;
+    public static List<Card> cards;
     private final List<Integer> highlightedRows = new ArrayList<>();
     private Card selectedCard = null;
     private List<Card> selectedCards;
@@ -34,7 +38,7 @@ public class BuildDeckView extends JPanel {
     final JButton addCard;
     final JButton removeCard;
     final JButton buildDeck;
-    final JList<Card> cardJList;
+    public static JList<Card> cardJList;
 
     public BuildDeckView(BuildDeckViewModel buildDeckViewModel, ViewManagerModel viewManagerModel,
                          BuildDeckController buildDeckController) {
@@ -127,10 +131,13 @@ public class BuildDeckView extends JPanel {
                             // Set activeView to HubView
                             viewManagerModel.setActiveView("Decks Menu");
                             viewManagerModel.firePropertyChanged();
+                            cardJList.setListData(cards.toArray(new Card[0]));
+
                         }
                     }
                 }
         );
+
         cardJList.addListSelectionListener(
                 new ListSelectionListener() {
                     @Override
