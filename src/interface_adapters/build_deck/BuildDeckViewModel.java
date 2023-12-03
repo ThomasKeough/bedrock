@@ -21,12 +21,12 @@ public class BuildDeckViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-
+        support.firePropertyChange("build deck", null, this.getState());
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-
+        support.addPropertyChangeListener(listener);
     }
 
     public BuildDeckState getState() {

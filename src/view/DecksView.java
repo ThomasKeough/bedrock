@@ -5,6 +5,8 @@ import entities.Card;
 import entities.Deck;
 import interface_adapters.DecksViewModel;
 import interface_adapters.ViewManagerModel;
+import interface_adapters.build_deck.BuildDeckState;
+import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.delete_deck.DeleteDeckController;
 import interface_adapters.delete_deck.DeleteDeckState;
 import interface_adapters.delete_deck.DeleteDeckViewModel;
@@ -26,6 +28,7 @@ public class DecksView extends JPanel implements PropertyChangeListener {
     public final String viewName = "Decks Menu";
     private final DecksViewModel decksViewModel;
     private final DeleteDeckViewModel deleteDeckViewModel;
+    private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
     private final HashMap<String, Deck> decks;
     private final DeleteDeckController deleteDeckController;
@@ -40,13 +43,16 @@ public class DecksView extends JPanel implements PropertyChangeListener {
     final JButton buildNewDeck;
 
     public DecksView(DeleteDeckController deleteDeckController, DecksViewModel decksViewModel,
-                     DeleteDeckViewModel deleteDeckViewModel, ViewManagerModel viewManagerModel) {
+                     DeleteDeckViewModel deleteDeckViewModel, BuildDeckViewModel buildDeckViewModel,
+                     ViewManagerModel viewManagerModel) {
         this.deleteDeckController = deleteDeckController;
         this.decksViewModel = decksViewModel;
         this.deleteDeckViewModel = deleteDeckViewModel;
+        this.buildDeckViewModel = buildDeckViewModel;
         this.viewManagerModel = viewManagerModel;
         this.decks = Main.player.getDecks();
         deleteDeckViewModel.addPropertyChangeListener(this);
+        buildDeckViewModel.addPropertyChangeListener(this);
 
         deckJList = new JList<Deck>(decks.values().toArray(new Deck[0]));
 
@@ -182,6 +188,20 @@ public class DecksView extends JPanel implements PropertyChangeListener {
                 JOptionPane.showMessageDialog(this, deletedDeck + " successfully deleted!");
             } else {
                 JOptionPane.showMessageDialog(this, deletedDeck + " failed to delete!");
+            }
+        } else if (evt.getPropertyName().equals("build deck")) {
+            BuildDeckState state = (BuildDeckState) evt.getNewValue();
+            Deck newDeck = state.getDeck();
+            if (!state.getUseCaseFailed()) {
+                // Build Deck Use Case Passes
+
+                DefaultListModel<Deck> listModel = (DefaultListModel<Deck>) deckJList.getModel();
+                listModel.addElement(newDeck);
+
+                int lastIndex = listModel.size() - 1;
+                deckJList.ensureIndexIsVisible(lastIndex);
+
+                // Set the selected index to the newly added deck
             }
         }
     }

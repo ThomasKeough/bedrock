@@ -65,10 +65,11 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel,
+                deleteDeckViewModel, buildDeckViewModel);
         views.add(decksView, decksView.viewName);
 
-        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
+        BuildDeckView buildDeckView = BuildDeckUseCaseFactory.create(viewManagerModel, buildDeckViewModel);
         views.add(buildDeckView, buildDeckView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
