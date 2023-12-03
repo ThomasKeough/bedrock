@@ -36,6 +36,7 @@ public class DecksView extends JPanel implements PropertyChangeListener {
     final JButton back;
     final JButton edit;
     final JButton delete;
+    final JButton display;
     final JButton createNewDeck;
 
     public DecksView(DeleteDeckController deleteDeckController, DecksViewModel decksViewModel,
@@ -60,19 +61,23 @@ public class DecksView extends JPanel implements PropertyChangeListener {
 
         JPanel buttons = new JPanel();
 
-        back = new JButton(decksViewModel.BACK_BUTTON_LABEL);
-        buttons.add(back);
-
         edit = new JButton(decksViewModel.EDIT_DECK_BUTTON_LABEL);
         edit.setEnabled(false);
-        buttons.add(back);
+        buttons.add(edit);
 
         delete = new JButton(decksViewModel.DELETE_DECK_BUTTON_LABEL);
         delete.setEnabled(false);
         buttons.add(delete);
 
+        display = new JButton(decksViewModel.DISPLAY_DECK_BUTTON_LABEL);
+        display.setEnabled(false);
+        buttons.add(display);
+
         createNewDeck = new JButton(decksViewModel.CREATE_NEW_DECK_BUTTON_LABEL);
         buttons.add(createNewDeck);
+
+        back = new JButton(decksViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
 
         this.setLayout(new BorderLayout());
         this.add(scrollPane, BorderLayout.WEST);
@@ -106,6 +111,26 @@ public class DecksView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+        display.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JPanel panel =  new JPanel(new FlowLayout());
+                        for (Card card: selectedDeck.getCards()) {
+                            panel.add(new JLabel(resizeIcon(createImageIconFromURL(card.getCardArt()), 0.3)));
+                        }
+                        JOptionPane.showOptionDialog(
+                                deckJList,
+                                panel,
+                                selectedDeck.getDeckName(),
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,  // No custom icon
+                                null,  // No custom options
+                                null);  // Default initial value
+                    }
+                }
+        );
         createNewDeck.addActionListener(
                 new ActionListener() {
                     @Override
@@ -119,11 +144,11 @@ public class DecksView extends JPanel implements PropertyChangeListener {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         if (!e.getValueIsAdjusting()) {
-                            // The user has finished making a selection
                             selectedDeck = deckJList.getSelectedValue();
 
                             edit.setEnabled(true);
                             delete.setEnabled(true);
+                            display.setEnabled(true);
                             createNewDeck.setEnabled(true);
                         }
                     }

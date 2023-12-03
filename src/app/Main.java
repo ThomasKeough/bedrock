@@ -38,11 +38,11 @@ public class Main {
         DecksViewModel decksViewModel = new DecksViewModel();
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
 
-        TradingCardGameDAO dao = new TradingCardGameDAO();
-        dao.fetch_and_write_data();
+//        TradingCardGameDAO dao = new TradingCardGameDAO();
+//        dao.fetch_and_write_data();
 
-        CommonCollection collection = new CommonCollection();
-        collection.initializeCollection();
+//        CommonCollection collection = new CommonCollection();
+//        collection.initializeCollection();
       
         CardDAO userDataAccessObject;
         try {
