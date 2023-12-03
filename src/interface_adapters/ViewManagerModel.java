@@ -40,16 +40,8 @@ public class ViewManagerModel {
         index = card_index;
         card = returnedCard;
         BuildDeckView.cards.set(index, card);
-        notifyObservers();
-    }
-
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    private void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(index, card);
-        }
+        BuildDeckView.cardJList.setListData(BuildDeckView.cards.toArray(new Card[0]));
+        System.out.println("A Wonder Trade was performed!");
+        System.out.println("You received: " + card.getName());
     }
 }

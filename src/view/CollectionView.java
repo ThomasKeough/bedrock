@@ -25,7 +25,7 @@ import static view.ImageIconCreator.createImageIcon;
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class CollectionView extends JPanel implements Observer {
+public class CollectionView extends JPanel{
     public final String viewName = "Collection Menu";
     private ViewManagerModel viewManagerModel;
     private final CollectionViewModel collectionViewModel;
@@ -42,7 +42,6 @@ public class CollectionView extends JPanel implements Observer {
         // setting observers for WonderTrade's collection updating
         this.buildDeckViewModel = buildDeckViewModel;
         BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
-        viewManagerModel.registerObserver(buildDeckView);
 
         WonderTradeDataAccessInterface wonderTradeDataAccessObject;
         wonderTradeDataAccessObject = new TradingCardGameDAO();
@@ -120,9 +119,8 @@ public class CollectionView extends JPanel implements Observer {
 
                                     // back end first
                                     Main.player.getCollection().replace_card(old_index, returnedCard);
-                                    Collection newCollection = Main.player.getCollection();
 
-                                    // Update the collection in ViewManagerModel
+                                    // update the collection in ViewManagerModel
                                     viewManagerModel.updateCollection(card_index, returnedCard);
 
                                     // front end, update the JList with the new card
@@ -133,8 +131,5 @@ public class CollectionView extends JPanel implements Observer {
                         }
                     }
                 });
-    }
-    public void update(int index, Card card) {
-
     }
 }

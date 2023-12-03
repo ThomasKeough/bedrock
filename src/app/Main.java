@@ -29,7 +29,7 @@ public class Main {
 
         player = createExamplePlayer();
 
-        JFrame application = new JFrame("Pokemon");
+        JFrame application = new JFrame("Pokémon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();

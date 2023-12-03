@@ -12,8 +12,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.Objects;
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class BuildDeckView extends JPanel implements Observer{
+public class BuildDeckView extends JPanel{
     public final String viewName = "Build Deck Menu";
     private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
@@ -32,16 +31,10 @@ public class BuildDeckView extends JPanel implements Observer{
     private Card selectedCard = null;
     private List<Card> selectedCards;
     final JButton back;
-
-    final JButton refresh;
     final JButton addCard;
     final JButton removeCard;
     final JButton buildDeck;
-    JList<Card> cardJList;
-
-    JScrollPane scrollPane;
-
-//    final DefaultListModel<Card> listModel;
+    public static JList<Card> cardJList;
 
     public BuildDeckView(BuildDeckViewModel buildDeckViewModel, ViewManagerModel viewManagerModel) {
         this.buildDeckViewModel = buildDeckViewModel;
@@ -53,8 +46,7 @@ public class BuildDeckView extends JPanel implements Observer{
         cardJList = new JList<Card>(cards.toArray(new Card[0]));
 
         // Create a JScrollPane to enable scrolling
-//        JScrollPane scrollPane = new JScrollPane(cardJList);
-        scrollPane = new JScrollPane(cardJList);
+        JScrollPane scrollPane = new JScrollPane(cardJList);
         scrollPane.setPreferredSize(new Dimension(800, 600));
 
         this.setLayout(new FlowLayout());
@@ -75,9 +67,6 @@ public class BuildDeckView extends JPanel implements Observer{
 
         back = new JButton(buildDeckViewModel.BACK_BUTTON_LABEL);
         this.add(back);
-
-        refresh = new JButton(buildDeckViewModel.REFRESH_BUTTON_LABEL);
-        this.add(refresh);
 
         cardJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -139,20 +128,6 @@ public class BuildDeckView extends JPanel implements Observer{
                 }
         );
 
-        // temp solution
-        refresh.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(refresh)) {
-                            // update cards
-                            cardJList.setListData(cards.toArray(new Card[0]));
-
-                        }
-                    }
-                }
-        );
-
         cardJList.addListSelectionListener(
                 new ListSelectionListener() {
                     @Override
@@ -171,16 +146,6 @@ public class BuildDeckView extends JPanel implements Observer{
                         }
                     }
                 });
-    }
-
-    @Override
-    public void update(int index, Card card) {
-        System.out.println("A Wonder Trade was performed!");
-        System.out.println("You received: " + card.getName());
-
-        cards.set(index, card);
-        cardJList.setListData(cards.toArray(new Card[0]));
-
     }
 
     private void updateHighlighting() {
