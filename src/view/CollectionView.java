@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
+import static view.ImageIconCreator.createImageIcon;
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
@@ -79,11 +80,12 @@ public class CollectionView extends JPanel {
                                 String description = selectedCard.getName() + '\n';
                                 JLabel descriptionLabel = new JLabel(description);
 
+                              
+                                // Card Art
                                 ImageIcon cardImage = resizeIcon(createImageIconFromURL(selectedCard.getCardArt()), 0.5);
                                 JLabel cardImageLabel = new JLabel(cardImage);
 
                                 JPanel panel =  new JPanel(new BorderLayout());
-                                panel.add(descriptionLabel);
                                 panel.add(cardImageLabel);
 
                                 Object[] options = {"OK", "WonderTrade"};
@@ -116,7 +118,6 @@ public class CollectionView extends JPanel {
                                     cardList.setListData(cards.toArray(new Card[0]));
                                 }
                             }
-
                         }
                     }
                 });
