@@ -50,18 +50,19 @@ public class CommonCardFactory implements CardFactory {
 
         String cardType = card.getJSONArray("types").getString(0); // ex: ["Metal"]
 
-        JSONObject cardWeaknessesObj = card.getJSONArray("weaknesses").getJSONObject(0);
         HashMap<String, Integer> cardWeaknesses = new HashMap<>();
-        String weaknessValue = cardWeaknessesObj.getString("value");
-        if (!Objects.equals(weaknessValue, "")) {
-            weaknessValue = cleanNumberString(weaknessValue);
-        } else {
-            weaknessValue = "0";
-        }
-        cardWeaknesses.put(cardWeaknessesObj.getString("type"), Integer.parseInt(weaknessValue));
 
+        if (card.has("weaknesses")) {
+            JSONObject cardWeaknessesObj = card.getJSONArray("weaknesses").getJSONObject(0);
+            String weaknessValue = cardWeaknessesObj.getString("value");
+            if (!Objects.equals(weaknessValue, "")) {
+                weaknessValue = cleanNumberString(weaknessValue);
+            } else {
+                weaknessValue = "0";
+            }
+            cardWeaknesses.put(cardWeaknessesObj.getString("type"), Integer.parseInt(weaknessValue));
 //        cardWeaknesses.put(cardWeaknessesObj.getString("type"), cardWeaknessesObj.getInt("value"));
-
+        }
         HashMap<String, Integer> cardResistances = new HashMap<>();
         if (card.has("resistances")) {
             JSONObject cardResistancesObj = card.getJSONArray("resistances").getJSONObject(0);
@@ -80,19 +81,21 @@ public class CommonCardFactory implements CardFactory {
         Type type = new CommonType(cardType, cardWeaknesses, cardResistances);
 
         HashMap<String, Integer> attacks = new HashMap<>();
-        JSONArray attacksObj = card.getJSONArray("attacks");
-        for (int i = 0; i < attacksObj.length(); i++) {
-            String damage = attacksObj.getJSONObject(i).getString("damage");
-            if (!Objects.equals(damage, "")) {
-                damage = cleanNumberString(damage); // refactored the code below so we can reuse it in weakness and resistance
-//                damage = damage.replace("×", "");
-//                damage = damage.replace("+", "");
-//                damage = damage.replace("-", "");
-                attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
-            } else {
-                attacks.put(attacksObj.getJSONObject(i).getString("name"), 0);
+        if (card.has("attacks"))
+        {
+            JSONArray attacksObj = card.getJSONArray("attacks");
+            for (int i = 0; i < attacksObj.length(); i++) {
+                String damage = attacksObj.getJSONObject(i).getString("damage");
+                if (!Objects.equals(damage, "")) {
+                    damage = cleanNumberString(damage); // refactored the code below so we can reuse it in weakness and resistance
+    //                damage = damage.replace("×", "");
+    //                damage = damage.replace("+", "");
+    //                damage = damage.replace("-", "");
+                    attacks.put(attacksObj.getJSONObject(i).getString("name"), Integer.parseInt(damage));
+                } else {
+                    attacks.put(attacksObj.getJSONObject(i).getString("name"), 0);
+                }
             }
-
         }
 
         boolean isSpecial = false;
