@@ -1,26 +1,25 @@
-package interface_adapters;
+package interface_adapters.wonder_trade;
 
-import interface_adapters.wonder_trade.WonderTradeState;
+import entities.Card;
+import interface_adapters.ViewModel;
+import interface_adapters.add_to_collection.AddToCollectionState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class CollectionViewModel extends ViewModel {
-    public final String TITLE_LABEL =  "Collection Menu View";
-    public final String BACK_BUTTON_LABEL = "Back";
-    public CollectionViewModel() {
-        super("collection menu");
-    }
-
+public class WonderTradeViewModel extends ViewModel {
     private WonderTradeState state = new WonderTradeState();
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    public WonderTradeViewModel() {
+        super("wonderTrade");
+    }
 
     @Override
     public void firePropertyChanged() {
 
     }
-
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
 
@@ -33,5 +32,4 @@ public class CollectionViewModel extends ViewModel {
     public void setState(WonderTradeState state){
         this.state = state;
     }
-
 }

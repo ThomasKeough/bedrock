@@ -1,7 +1,10 @@
 package use_cases.swap;
 
-public interface SwapOutputBoundary {
-    public void prepareSuccessView(SwapOutputData swapOutputData);
-    public void prepareFailView(SwapOutputData swapOutputData);
+import use_cases.build_deck.BuildDeckOutputData;
 
+public interface SwapOutputBoundary {
+
+    void prepareSuccessView(SwapOutputData outputData);
+
+    void prepareFailView(SwapOutputData error);
 }

@@ -57,4 +57,9 @@ public class CommonCard implements Card {
         return image;
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
 }

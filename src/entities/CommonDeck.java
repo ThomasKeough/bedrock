@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 public class CommonDeck extends CommonCollection implements Deck {
+    private String deckName;
     private Integer limit;
     private ArrayList<Card> cards;
 
@@ -10,16 +11,27 @@ public class CommonDeck extends CommonCollection implements Deck {
         super(cards, 6);
     }
 
-    public CommonDeck(Card one, Card two, Card three, Card four, Card five, Card six) {
+    public CommonDeck(String deckName, Card one, Card two, Card three, Card four, Card five, Card six) {
         super(null, 6);
+        this.deckName = deckName;
         ArrayList<Card> cards = new ArrayList<Card>();
-            this.cards.add(one);
-            this.cards.add(two);
-            this.cards.add(three);
-            this.cards.add(four);
-            this.cards.add(five);
-            this.cards.add(six);
+            cards.add(one);
+            cards.add(two);
+            cards.add(three);
+            cards.add(four);
+            cards.add(five);
+            cards.add(six);
         this.cards = cards;
+    }
+
+    @Override
+    public String getDeckName() {
+        return this.deckName;
+    }
+
+    @Override
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
     }
 
     @Override
@@ -41,5 +53,10 @@ public class CommonDeck extends CommonCollection implements Deck {
     @Override
     public Card getActivePokemon() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return this.getDeckName();
     }
 }
