@@ -34,14 +34,10 @@ public class CollectionView extends JPanel{
     private List<Card> cards;
     final JButton back;
 
-    public CollectionView(CollectionViewModel collectionViewModel, ViewManagerModel viewManagerModel, BuildDeckViewModel buildDeckViewModel)
+    public CollectionView(CollectionViewModel collectionViewModel, ViewManagerModel viewManagerModel)
     {
         this.collectionViewModel = collectionViewModel;
         this.viewManagerModel = viewManagerModel;
-
-        // setting observers for WonderTrade's collection updating
-        this.buildDeckViewModel = buildDeckViewModel;
-        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
 
         WonderTradeDataAccessInterface wonderTradeDataAccessObject;
         wonderTradeDataAccessObject = new TradingCardGameDAO();
