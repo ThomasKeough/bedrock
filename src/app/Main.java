@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static Player player;
@@ -38,11 +39,11 @@ public class Main {
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
 
-        TradingCardGameDAO dao = new TradingCardGameDAO();
-        dao.fetch_and_write_data();
+//        TradingCardGameDAO dao = new TradingCardGameDAO();
+//        dao.fetch_and_write_data();
 
-        CommonCollection collection = new CommonCollection();
-        collection.initializeCollection();
+//        CommonCollection collection = new CommonCollection();
+//        collection.initializeCollection();
       
         CardDAO userDataAccessObject;
         try {
@@ -101,8 +102,13 @@ public class Main {
         cards.add(six);
 
         Collection collection = new CommonCollection(cards, 6);
-        Deck deck = new CommonDeck(one, two, three, four, five, six);
+        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
-        return new CommonPlayer("Tester", deck, collection, null);
+        HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
+        Player player = new CommonPlayer("Tester", deck, collection, decks);
+        player.addDeck("test deck", deck);
+
+        return player;
     }
 }

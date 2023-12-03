@@ -13,9 +13,9 @@ public class BuildDeckInteractor implements BuildDeckInputBoundary {
 
     @Override
     public void execute(BuildDeckInputData buildDeckinputData) {
-        Deck deck = new CommonDeck(buildDeckinputData.getOne(), buildDeckinputData.getTwo(), buildDeckinputData.getThree(),
-                buildDeckinputData.getFour(), buildDeckinputData.getFive(), buildDeckinputData.getSix());
         String deckName = buildDeckinputData.getDeckName();
+        Deck deck = new CommonDeck(deckName, buildDeckinputData.getOne(), buildDeckinputData.getTwo(), buildDeckinputData.getThree(),
+                buildDeckinputData.getFour(), buildDeckinputData.getFive(), buildDeckinputData.getSix());
         Player player = buildDeckinputData.getPlayer();
         player.addDeck(deckName, deck);
 

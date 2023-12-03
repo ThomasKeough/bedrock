@@ -16,7 +16,6 @@ public class CommonPlayer implements Player {
         this.playerDecks = playerDecks;
     }
 
-
     @Override
     public String getName() {
         return this.name;
