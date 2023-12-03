@@ -5,6 +5,7 @@ import entities.Card;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.ViewModel;
 import interface_adapters.build_deck.BuildDeckController;
+import interface_adapters.build_deck.BuildDeckState;
 import interface_adapters.build_deck.BuildDeckViewModel;
 import use_cases.build_deck.BuildDeckInputData;
 
@@ -15,13 +16,15 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class BuildDeckView extends JPanel {
+public class BuildDeckView extends JPanel implements PropertyChangeListener {
     public final String viewName = "Build Deck Menu";
     private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
@@ -43,6 +46,7 @@ public class BuildDeckView extends JPanel {
         this.cards = Main.player.getCollection().getCards();
         this.buildDeckController = buildDeckController;
         this.selectedCards = new ArrayList<Card>();
+        buildDeckViewModel.addPropertyChangeListener(this);
 
         // Create a JList with the items
         cardJList = new JList<Card>(cards.toArray(new Card[0]));
@@ -112,9 +116,11 @@ public class BuildDeckView extends JPanel {
                         if (e.getSource().equals(buildDeck)) {
                             String deckName = JOptionPane.showInputDialog(null,
                                     "What would you like to name this deck?");
-                            buildDeckController.execute(Main.player, deckName, selectedCards.get(0),
-                                    selectedCards.get(1), selectedCards.get(2), selectedCards.get(3),
-                                    selectedCards.get(4), selectedCards.get(5));
+                            if (deckName != null) {
+                                buildDeckController.execute(Main.player, deckName, selectedCards.get(0),
+                                        selectedCards.get(1), selectedCards.get(2), selectedCards.get(3),
+                                        selectedCards.get(4), selectedCards.get(5));
+                            }
                         }
                     }
                 }
@@ -162,5 +168,19 @@ public class BuildDeckView extends JPanel {
         }
         addCard.setEnabled(false);
         removeCard.setEnabled(false);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("build deck")) {
+            BuildDeckState state = (BuildDeckState) evt.getNewValue();
+            String deckName = state.getDeckName();
+            if (!state.getUseCaseFailed()) {
+                JOptionPane.showMessageDialog(this, deckName + " successfully created!");
+                cardJList.removeSelectionInterval();
+            } else {
+                JOptionPane.showMessageDialog(this, deckName + " failed to be created!");
+            }
+        }
     }
 }

@@ -60,7 +60,6 @@ public class DecksView extends JPanel implements PropertyChangeListener {
         deckListModel.addAll(decks.values());
         deckJList.setModel(deckListModel);
 
-
         // Create a JScrollPane to enable scrolling
         scrollPane = new JScrollPane(deckJList);
         scrollPane.setPreferredSize(new Dimension(800, 600));
@@ -194,14 +193,7 @@ public class DecksView extends JPanel implements PropertyChangeListener {
             Deck newDeck = state.getDeck();
             if (!state.getUseCaseFailed()) {
                 // Build Deck Use Case Passes
-
-                DefaultListModel<Deck> listModel = (DefaultListModel<Deck>) deckJList.getModel();
-                listModel.addElement(newDeck);
-
-                int lastIndex = listModel.size() - 1;
-                deckJList.ensureIndexIsVisible(lastIndex);
-
-                // Set the selected index to the newly added deck
+                deckJList.setListData(decks.values().toArray(new Deck[0]));
             }
         }
     }
