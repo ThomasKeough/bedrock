@@ -1,12 +1,17 @@
+package app;
+
 import data.CardDAO;
 import data.TradingCardGameDAO;
-import entities.Collection;
-import entities.CommonCardFactory;
-import entities.CommonCollection;
+import entities.*;
 import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
 //import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.wonder_trade.WonderTradeController;
+import interface_adapters.wonder_trade.WonderTradeViewModel;
+import use_cases.wonder_trade.WonderTradeInputBoundary;
+import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
 
 import javax.imageio.ImageIO;
@@ -14,10 +19,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
+    public static Player player;
     public static void main(String[] args) {
-        JFrame application = new JFrame("Pokemon");
+        TradingCardGameDAO.fetch_and_write_data();
+
+        player = createExamplePlayer();
+
+        JFrame application = new JFrame("Pokémon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -34,11 +46,8 @@ public class Main {
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
 
-        TradingCardGameDAO dao = new TradingCardGameDAO();
-        dao.fetch_and_write_data();
-
-        CommonCollection collection = new CommonCollection();
-        collection.initializeCollection();
+        DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
+        BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
       
         CardDAO userDataAccessObject;
         try {
@@ -56,11 +65,15 @@ public class Main {
         PlayView playView = new PlayView(playViewModel, viewManagerModel);
         views.add(playView, playView.viewName);
 
-        CollectionView collectionView = new CollectionView(collectionViewModel);
+        CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = new DecksView(decksViewModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel,
+                deleteDeckViewModel, buildDeckViewModel);
         views.add(decksView, decksView.viewName);
+
+        BuildDeckView buildDeckView = BuildDeckUseCaseFactory.create(viewManagerModel, buildDeckViewModel);
+        views.add(buildDeckView, buildDeckView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
@@ -77,5 +90,34 @@ public class Main {
         application.setSize(1280, 720);
         application.setLocationRelativeTo(null);
         application.setVisible(true);
+    }
+
+    public static Player createExamplePlayer() {
+        CommonCardFactory commonCardFactory = new CommonCardFactory();
+        Card one = commonCardFactory.create("sv3pt5-202", "Zapdos ex");
+        Card two = commonCardFactory.create("sv3pt5-179", "Mr. Mime");
+        Card three = commonCardFactory.create("sv3pt5-176", "Poliwhirl");
+        Card four = commonCardFactory.create("sv3pt5-193", "Mew ex");
+        Card five = commonCardFactory.create("sv3pt5-131", "Lapras");
+        Card six = commonCardFactory.create("sv3pt5-143", "Snorlax");
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(one);
+        cards.add(two);
+        cards.add(three);
+        cards.add(four);
+        cards.add(five);
+        cards.add(six);
+
+        Collection collection = new CommonCollection();
+        collection.initializeCollection(false);
+        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
+
+        HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
+        Player player = new CommonPlayer("Tester", deck, collection, decks);
+        player.addDeck("test deck", deck);
+
+        return player;
     }
 }

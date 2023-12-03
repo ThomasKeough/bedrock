@@ -10,41 +10,58 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;;
 
+import static view.ImageIconCreator.createImageIcon;
 import static view.ImageResizer.resizeIcon;
 
 public class MainView extends JPanel {
     public final String viewName = "Main Menu";
     private final MainViewModel mainViewModel;
     private ViewManagerModel viewManagerModel;
+    final JLabel pokemonLogoLabel;
+    final JPanel logoPanel;
     final JButton start;
+    final ImageIcon backgroundIcon;
+    final JLabel backgroundLabel;
 
     public MainView(MainViewModel mainViewModel, ViewManagerModel viewManagerModel) {
         this.mainViewModel = mainViewModel;
         this.viewManagerModel = viewManagerModel;
 
-        JLabel pokemonLogoLabel = new JLabel();
-
-        JPanel logoPanel = new JPanel();
+        // Pokemon Logo
+        pokemonLogoLabel = new JLabel();
+        logoPanel = new JPanel();
         logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.PAGE_AXIS));
 
-        JPanel buttons = new JPanel();
+        // Start Button
         start = new JButton(mainViewModel.START_BUTTON_LABEL);
         start.setPreferredSize(new Dimension(150, 50));
         start.setFont(new Font("Roboto", Font.BOLD, 16));
-        buttons.add(start);
 
+        // Loading images
         try {
-            ImageIcon pokemonLogo = new ImageIcon("images/pokemon_logo.png");
-            ImageIcon resizedPokemonLogo = resizeIcon(pokemonLogo, 0.25);
-            pokemonLogoLabel.setIcon(resizedPokemonLogo);
+            // Pokemon Logo
+            ImageIcon pokemonLogo = resizeIcon(createImageIcon("images/pokemon_logo.png"), 0.25);
+            pokemonLogoLabel.setIcon(pokemonLogo);
+
+            backgroundIcon = resizeIcon(createImageIcon("images/main_bg.png"), 1280, 720);
         } catch (Exception e) {
             throw new RuntimeException("Error loading image: " + e.getMessage());
         }
 
-        setLayout(new BorderLayout());
+        backgroundLabel = new JLabel(backgroundIcon);
 
-        this.add(pokemonLogoLabel, BorderLayout.NORTH);
-        this.add(buttons, BorderLayout.CENTER);
+        backgroundLabel.setLayout(new BorderLayout());
+        this.add(backgroundLabel, BorderLayout.CENTER);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(Box.createRigidArea(new Dimension(0, 115)));
+        panel.add(pokemonLogoLabel);
+        panel.add(start);
+        panel.setOpaque(false);
+
+        backgroundLabel.add(panel, BorderLayout.CENTER);
 
         start.addActionListener(
                 new ActionListener() {

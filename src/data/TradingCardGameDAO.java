@@ -1,5 +1,6 @@
 package data;
 
+import entities.Card;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -9,29 +10,40 @@ import org.json.JSONObject;
 import use_cases.wonder_trade.WonderTradeDataAccessInterface;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
 
     // Specify the CSV file path
-    File csvFile = new File("circulating_pokemon_cards.csv");
+    public static File csvFile = new File("circulating_pokemon_cards.csv");
 
-    // the current set being used for the game, sv3pt5 is ID for set Scarlet Violet 151
+    // the current set being used for the game, our default is sv3pt5, but feel free to change to any eligible set name
     private static String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
     private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
 
     public static void fetch_and_write_data() {
-        // Create an instance of TradingCardGameDAO
-        TradingCardGameDAO dao = new TradingCardGameDAO();
+        try{
+            // Check if the file is empty
+            if (csvFile.length() == 0) {
 
-        // Call the getAllCards method to fetch data from the API and write to the CSV file
-        dao.writeAllCards(setID);
+                // Create an instance of TradingCardGameDAO
+                TradingCardGameDAO dao = new TradingCardGameDAO();
 
-        System.out.println("API data has been fetched and written to the CSV file.");
+                // Call the getAllCards method to fetch data from the API and write to the CSV file
+                dao.writeAllCards(setID);
+
+                System.out.println("API data has been fetched and written to the CSV file.");
+            }
+            else{
+                System.out.println("The CSV file is not empty.");
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -64,9 +76,9 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
             for (int i = 0; i < set.length(); i++) {
                 JSONObject pokemonObject = set.getJSONObject(i);
 
-                // check that card is a Pokémon, not a trainer or item card
+                // check that card is a Pokémon, not a trainer or item card, also check that the pokemon is Game-Valid
                 String supertype = pokemonObject.getString("supertype");
-                if (Objects.equals(supertype, "Pokémon"))
+                if (Objects.equals(supertype, "Pokémon") && pokemonObject.has("attacks"))
                 {
                     // Extract the desired information
                     String id = pokemonObject.getString("id");
@@ -113,7 +125,8 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
 
     public String fetch_similar_card(boolean isHighHp, boolean isSpecial){
         String line = "";
-        String csvFile = this.csvFile.getName(); // replace with your file path
+        String csvFile = TradingCardGameDAO.csvFile.getName(); // replace with your file path
+        List<String> matchingCards = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
@@ -125,14 +138,37 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
                 boolean lineIsSpecial = Boolean.parseBoolean(card[4].trim());
 
                 if (lineIsHighHp == isHighHp && lineIsSpecial == isSpecial) {
-                    return card[0];  // return the card ID
+                    matchingCards.add(card[0]);  // add the card ID to the list
                 }
+            }
+
+            if (!matchingCards.isEmpty()) {
+                // Randomly select a card from the list of matching cards
+                Random rand = new Random();
+                return matchingCards.get(rand.nextInt(matchingCards.size()));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return "No matching card found";
+    }
+
+    public static int circulating_card_count(){
+        String line = "";
+        String csvFile = TradingCardGameDAO.csvFile.getName(); // replace with your file path
+        int num = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                num += 1;
+            }
+            return num;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return num;
     }
 
 }

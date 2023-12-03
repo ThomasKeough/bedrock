@@ -17,7 +17,7 @@ public class SwapInteractor implements SwapInputBoundary {
         swapOut.swap();
 
         SwapOutputData swapOutputData = new SwapOutputData(swapIn, swapOut);
-        swapOutputBoundary.prepareSucessView(swapOutputData);
+        swapOutputBoundary.prepareSuccessView(swapOutputData);
 
     }
 }

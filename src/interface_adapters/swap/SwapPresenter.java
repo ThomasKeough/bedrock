@@ -18,8 +18,7 @@ public class SwapPresenter implements SwapOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    @Override
-    public void prepareSucessView(SwapOutputData swapOutputData) {
+    public void prepareSuccessView(SwapOutputData swapOutputData) {
         SwapState swapState = swapViewModel.getState();
         swapState.setSwaps(swapOutputData);
         swapViewModel.setState(swapState);
@@ -29,7 +28,6 @@ public class SwapPresenter implements SwapOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
-    @Override
     public void prepareFailView(SwapOutputData swapOutputData) {
         System.out.println("swap failed");
     }
