@@ -2,6 +2,7 @@ package view;
 
 import app.Main;
 import entities.Card;
+import entities.Collection;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.ViewModel;
 import interface_adapters.build_deck.BuildDeckViewModel;
@@ -13,25 +14,34 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
-public class BuildDeckView extends JPanel {
+public class BuildDeckView extends JPanel implements Observer{
     public final String viewName = "Build Deck Menu";
     private final BuildDeckViewModel buildDeckViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final List<Card> cards;
+    public static List<Card> cards;
     private final List<Integer> highlightedRows = new ArrayList<>();
     private Card selectedCard = null;
     private List<Card> selectedCards;
     final JButton back;
+
+    final JButton refresh;
     final JButton addCard;
     final JButton removeCard;
     final JButton buildDeck;
-    final JList<Card> cardJList;
+    JList<Card> cardJList;
+
+    JScrollPane scrollPane;
+
+//    final DefaultListModel<Card> listModel;
 
     public BuildDeckView(BuildDeckViewModel buildDeckViewModel, ViewManagerModel viewManagerModel) {
         this.buildDeckViewModel = buildDeckViewModel;
@@ -43,7 +53,8 @@ public class BuildDeckView extends JPanel {
         cardJList = new JList<Card>(cards.toArray(new Card[0]));
 
         // Create a JScrollPane to enable scrolling
-        JScrollPane scrollPane = new JScrollPane(cardJList);
+//        JScrollPane scrollPane = new JScrollPane(cardJList);
+        scrollPane = new JScrollPane(cardJList);
         scrollPane.setPreferredSize(new Dimension(800, 600));
 
         this.setLayout(new FlowLayout());
@@ -64,6 +75,9 @@ public class BuildDeckView extends JPanel {
 
         back = new JButton(buildDeckViewModel.BACK_BUTTON_LABEL);
         this.add(back);
+
+        refresh = new JButton(buildDeckViewModel.REFRESH_BUTTON_LABEL);
+        this.add(refresh);
 
         cardJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -118,10 +132,27 @@ public class BuildDeckView extends JPanel {
                             // Set activeView to HubView
                             viewManagerModel.setActiveView("Decks Menu");
                             viewManagerModel.firePropertyChanged();
+                            cardJList.setListData(cards.toArray(new Card[0]));
+
                         }
                     }
                 }
         );
+
+        // temp solution
+        refresh.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(refresh)) {
+                            // update cards
+                            cardJList.setListData(cards.toArray(new Card[0]));
+
+                        }
+                    }
+                }
+        );
+
         cardJList.addListSelectionListener(
                 new ListSelectionListener() {
                     @Override
@@ -140,6 +171,16 @@ public class BuildDeckView extends JPanel {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void update(int index, Card card) {
+        System.out.println("A Wonder Trade was performed!");
+        System.out.println("You received: " + card.getName());
+
+        cards.set(index, card);
+        cardJList.setListData(cards.toArray(new Card[0]));
+
     }
 
     private void updateHighlighting() {

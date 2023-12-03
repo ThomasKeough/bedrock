@@ -76,9 +76,9 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
             for (int i = 0; i < set.length(); i++) {
                 JSONObject pokemonObject = set.getJSONObject(i);
 
-                // check that card is a Pokémon, not a trainer or item card
+                // check that card is a Pokémon, not a trainer or item card, also check that the pokemon is Game-Valid
                 String supertype = pokemonObject.getString("supertype");
-                if (Objects.equals(supertype, "Pokémon"))
+                if (Objects.equals(supertype, "Pokémon") && pokemonObject.has("attacks"))
                 {
                     // Extract the desired information
                     String id = pokemonObject.getString("id");

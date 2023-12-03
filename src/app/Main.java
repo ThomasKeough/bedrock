@@ -65,7 +65,7 @@ public class Main {
         PlayView playView = new PlayView(playViewModel, viewManagerModel);
         views.add(playView, playView.viewName);
 
-        CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
+        CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel, buildDeckViewModel);
         views.add(collectionView, collectionView.viewName);
 
         DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
