@@ -7,6 +7,9 @@ import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
 //import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.wonder_trade.WonderTradeController;
+import interface_adapters.wonder_trade.WonderTradeViewModel;
+import use_cases.wonder_trade.WonderTradeInputBoundary;
 import view.*;
 
 import javax.imageio.ImageIO;

@@ -12,8 +12,8 @@ public class WonderTradeController {
         this.wonderTradeUseCaseInteractor = wonderTradeUseCaseInteractor;
     }
 
-    public void execute(Card card) {
-        WonderTradeInputData wonderTradeInputData = new WonderTradeInputData(card);
+    public void execute(Card card, int index) {
+        WonderTradeInputData wonderTradeInputData = new WonderTradeInputData(card, index);
 
         wonderTradeUseCaseInteractor.execute(wonderTradeInputData);
     }

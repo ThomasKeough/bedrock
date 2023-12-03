@@ -6,7 +6,7 @@ public class CommonPlayer implements Player {
 
     private final String name;
     private final Deck currentDeck;
-    private final Collection collection;
+    private Collection collection;
     private final HashMap<String, Deck> playerDecks;
 
     public CommonPlayer(String name, Deck currentDeck, Collection collection, HashMap<String, Deck> playerDecks) {

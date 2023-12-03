@@ -64,6 +64,14 @@ public class CommonCollection implements Collection {
         cards.add(card);
     }
 
+    @Override
+    public void replace_card(int card_index, Card replacement_card)
+    {
+        // Replace the card at the specified index with the replacement card
+        cards.set(card_index, replacement_card);
+
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
