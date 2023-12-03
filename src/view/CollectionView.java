@@ -95,7 +95,7 @@ public class CollectionView extends JPanel{
                                 JPanel panel =  new JPanel(new BorderLayout());
                                 panel.add(cardImageLabel);
 
-                                Object[] options = {"OK", "WonderTrade"};
+                                Object[] options = {"Close Preview", "WonderTrade"};
 
                                 int result = JOptionPane.showOptionDialog(
                                         cardList,
@@ -104,7 +104,7 @@ public class CollectionView extends JPanel{
                                         JOptionPane.DEFAULT_OPTION,
                                         JOptionPane.PLAIN_MESSAGE,
                                         null,  // No custom icon
-                                        options,  // No custom options
+                                        options,
                                         null);  // Default initial value
 
                                 if (result == 1) {
