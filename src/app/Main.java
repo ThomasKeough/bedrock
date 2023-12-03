@@ -109,7 +109,7 @@ public class Main {
         cards.add(six);
 
         Collection collection = new CommonCollection();
-        collection.initializeCollection(true);
+        collection.initializeCollection(false);
         Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
         HashMap<String, Deck> decks = new HashMap<String, Deck>();
