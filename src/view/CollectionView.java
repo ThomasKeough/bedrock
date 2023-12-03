@@ -74,44 +74,47 @@ public class CollectionView extends JPanel {
                             // The user has finished making a selection
                             Card selectedCard = cardList.getSelectedValue();
 
-                            String description = selectedCard.getName() + '\n';
-                            JLabel descriptionLabel = new JLabel(description);
+                            // Check if selectedCard is null before accessing its methods
+                            if (selectedCard != null) {
+                                String description = selectedCard.getName() + '\n';
+                                JLabel descriptionLabel = new JLabel(description);
 
-                            ImageIcon cardImage = resizeIcon(createImageIconFromURL(selectedCard.getCardArt()), 0.5);
-                            JLabel cardImageLabel = new JLabel(cardImage);
+                                ImageIcon cardImage = resizeIcon(createImageIconFromURL(selectedCard.getCardArt()), 0.5);
+                                JLabel cardImageLabel = new JLabel(cardImage);
 
-                            JPanel panel =  new JPanel(new BorderLayout());
-                            panel.add(descriptionLabel);
-                            panel.add(cardImageLabel);
+                                JPanel panel =  new JPanel(new BorderLayout());
+                                panel.add(descriptionLabel);
+                                panel.add(cardImageLabel);
 
-                            Object[] options = {"OK", "WonderTrade"};
+                                Object[] options = {"OK", "WonderTrade"};
 
-                            int result = JOptionPane.showOptionDialog(
-                                    cardList,
-                                    panel,
-                                    selectedCard.getName(),
-                                    JOptionPane.DEFAULT_OPTION,
-                                    JOptionPane.PLAIN_MESSAGE,
-                                    null,  // No custom icon
-                                    options,  // No custom options
-                                    null);  // Default initial value
+                                int result = JOptionPane.showOptionDialog(
+                                        cardList,
+                                        panel,
+                                        selectedCard.getName(),
+                                        JOptionPane.DEFAULT_OPTION,
+                                        JOptionPane.PLAIN_MESSAGE,
+                                        null,  // No custom icon
+                                        options,  // No custom options
+                                        null);  // Default initial value
 
-                            if (result == 1) {
-                                int card_index = cardList.getSelectedIndex();
+                                if (result == 1) {
+                                    int card_index = cardList.getSelectedIndex();
 
-                                // call wonder trade use case
-                                wonderTradeController.execute(selectedCard, card_index);
-                                WonderTradeState updatedState = collectionViewModel.getState();
+                                    // call wonder trade use case
+                                    wonderTradeController.execute(selectedCard, card_index);
+                                    WonderTradeState updatedState = collectionViewModel.getState();
 
-                                Card returnedCard = updatedState.getCard();
-                                int old_index = updatedState.getIndex();
+                                    Card returnedCard = updatedState.getCard();
+                                    int old_index = updatedState.getIndex();
 
-                                // back end first
-                                Main.player.getCollection().replace_card(old_index, returnedCard);
+                                    // back end first
+                                    Main.player.getCollection().replace_card(old_index, returnedCard);
 
-                                // front end, update the JList with the new card
-                                cards.set(card_index, returnedCard);
-                                cardList.setListData(cards.toArray(new Card[0]));
+                                    // front end, update the JList with the new card
+                                    cards.set(card_index, returnedCard);
+                                    cardList.setListData(cards.toArray(new Card[0]));
+                                }
                             }
 
                         }
