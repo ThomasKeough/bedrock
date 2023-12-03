@@ -4,9 +4,8 @@ import data.CardDAO;
 import data.TradingCardGameDAO;
 import entities.*;
 import interface_adapters.*;
-//import interface_adapters.add_to_collection.AddToCollectionViewModel;
-//import interface_adapters.build_card.BuildCardViewModel;
-//import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
 
 import javax.imageio.ImageIO;
@@ -15,6 +14,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static Player player;
@@ -37,12 +37,14 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
+        DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
+        BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
 
-        TradingCardGameDAO dao = new TradingCardGameDAO();
-        dao.fetch_and_write_data();
+//        TradingCardGameDAO dao = new TradingCardGameDAO();
+//        dao.fetch_and_write_data();
 
-        CommonCollection collection = new CommonCollection();
-        collection.initializeCollection();
+//        CommonCollection collection = new CommonCollection();
+//        collection.initializeCollection();
       
         CardDAO userDataAccessObject;
         try {
@@ -63,8 +65,11 @@ public class Main {
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
         views.add(collectionView, collectionView.viewName);
 
-        DecksView decksView = new DecksView(decksViewModel, viewManagerModel);
+        DecksView decksView = DeckUseCaseFactory.create(viewManagerModel, decksViewModel, deleteDeckViewModel);
         views.add(decksView, decksView.viewName);
+
+        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
+        views.add(buildDeckView, buildDeckView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
@@ -101,8 +106,13 @@ public class Main {
         cards.add(six);
 
         Collection collection = new CommonCollection(cards, 6);
-        Deck deck = new CommonDeck(one, two, three, four, five, six);
+        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
-        return new CommonPlayer("Tester", deck, collection, null);
+        HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
+        Player player = new CommonPlayer("Tester", deck, collection, decks);
+        player.addDeck("test deck", deck);
+
+        return player;
     }
 }

@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import static view.ImageIconCreator.createImageIcon;
 import static view.ImageIconCreator.createImageIconFromURL;
 import static view.ImageResizer.resizeIcon;
 
@@ -61,14 +62,11 @@ public class CollectionView extends JPanel {
                             // The user has finished making a selection
                             Card selectedCard = cardList.getSelectedValue();
 
-                            String description = selectedCard.getName() + '\n';
-                            JLabel descriptionLabel = new JLabel(description);
-
+                            // Card Art
                             ImageIcon cardImage = resizeIcon(createImageIconFromURL(selectedCard.getCardArt()), 0.5);
                             JLabel cardImageLabel = new JLabel(cardImage);
 
                             JPanel panel =  new JPanel(new BorderLayout());
-                            panel.add(descriptionLabel);
                             panel.add(cardImageLabel);
 
                             JOptionPane.showOptionDialog(
