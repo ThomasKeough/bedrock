@@ -11,19 +11,18 @@ import use_cases.swap.SwapInputBoundary;
 
 public class GameController {
     final AttackInputBoundary attackInteractor;
-    final SwapInputBoundary swapInteractor;
-
+//    final SwapInputBoundary swapInteractor;
     final GameInputBoundary gameUseCaseInteractor;
 
-    public GameController(GameInputBoundary gameUseCaseInteractor, AttackInputBoundary attackInteractor, SwapInputBoundary swapInteractor) {
+    public GameController(GameInputBoundary gameUseCaseInteractor, AttackInputBoundary attackInteractor) { //, SwapInputBoundary swapInteractor) {
         this.gameUseCaseInteractor = gameUseCaseInteractor;
         this.attackInteractor = attackInteractor;
-        this.swapInteractor = swapInteractor;
+//        this.swapInteractor = swapInteractor;
     }
 
-    public Player execute(Player playerOne, Player playerTwo) {
+    public void execute(Player playerOne, Player playerTwo) {
         GameInputData gameInputData = new GameInputData(playerOne, playerTwo);
-        return gameUseCaseInteractor.execute(gameInputData);
+        gameUseCaseInteractor.execute(gameInputData);
     }
 
 //    public Player executeAttack(Player playerOne, Player playerTwo) {

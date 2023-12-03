@@ -95,28 +95,6 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
         Integer winner = coinFlip(gameCardsOne, gameCardsTwo);
         GameOutputData gameOutputData = determineWinner(winner, playerOne, playerTwo);
         gameOutputBoundary.prepareSuccessView(gameOutputData);
-
-
-
-//        if (coinFlip == 0) {
-//            winner = runGameLoop(gameCardsOne, gameCardsTwo);
-//            if (winner == 1) {
-////                GameOutputData gameOutputData = new GameOutputData(playerOne);
-//                return playerOne;
-//            }
-//            else {
-//                return playerTwo;
-//            }
-//        }
-//        else {
-//            winner = runGameLoop(gameCardsTwo, gameCardsOne);
-//            if (winner == 2) {
-//                return playerTwo;
-//            }
-//            else {
-//                return playerOne;
-//            }
-//        }
     }
 
     public GameOutputData determineWinner(Integer winner, Player playerOne, Player playerTwo) {
@@ -143,11 +121,6 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
         return winner;
 
     }
-
-//
-//    public GameOutputData startGame(ArrayList<GameCard> gameCardsFirst, ArrayList<GameCard> gameCardsSecond) {
-//
-//    }
 
     public ArrayList<GameCard> initializeCards(Player player) {
         // INITIALIZES GAMECARD OBJECTS GIVEN THE USERS
@@ -179,23 +152,6 @@ public class GameInteractor implements GameInputBoundary, GameInputListener {
 
             onGameStateUpdate(activeOne, activeTwo);
             // TODO: do we need onGameStateUpdate(activeTwo, activeOne); for the second player's move?
-
-//                gameInputListener.onGameStateUpdate(activeOne, activeTwo);
-//
-//                if (gameInputListener.isAttackButtonPressed()) {
-//                    AttackInputData attackInputData = new AttackInputData((activeOne, activeTwo))
-//                    attackInteractor.execute(attackInputData);
-//                    gameInputListener.resetAttackButton(); // Reset the button state
-//                    // TODO: update GameState here
-//                }
-//
-//                if (gameInputListener.isSwapButtonPressed()) {
-//                    SwapInputData swapInputData = new SwapInputData(...)
-//                    SwapInteractor.execute(swapInputData);
-//                    gameInputListener.resetSwapButton(); // Reset the button state
-//                    // TODO: update GameState? (changed active pokemon)
-//                }
-
 
                 // CHECKS IF A POKEMON HAS FAINTED - IF IT HAS, REMOVE FROM THE LIST
                 for (int j = 0; j < gameCardsFirst.size(); j++) { // since both arrays equal size, we only need 1
