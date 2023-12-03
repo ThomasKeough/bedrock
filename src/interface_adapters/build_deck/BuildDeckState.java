@@ -7,14 +7,9 @@ public class BuildDeckState {
     private Player player;
     private Deck deck;
     private String deckName;
+    private boolean useCaseFailed;
 
     public BuildDeckState() {}
-
-    public BuildDeckState(BuildDeckState copy) {
-        player = copy.player;
-        deck = copy.deck;
-        deckName = copy.deckName;
-    }
 
     public Player getPlayer() {
         return player;
@@ -28,6 +23,10 @@ public class BuildDeckState {
         return deckName;
     }
 
+    public boolean getUseCaseFailed() {
+        return this.useCaseFailed;
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -38,5 +37,9 @@ public class BuildDeckState {
 
     public void setDeckName(String deckName) {
         this.deckName = deckName;
+    }
+
+    public void setUseCaseFailed(boolean useCaseFailed) {
+        this.useCaseFailed = useCaseFailed;
     }
 }
