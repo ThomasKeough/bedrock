@@ -41,7 +41,6 @@ public class CollectionView extends JPanel{
 
         // setting observers for WonderTrade's collection updating
         this.buildDeckViewModel = buildDeckViewModel;
-        BuildDeckView buildDeckView = new BuildDeckView(buildDeckViewModel, viewManagerModel);
 
         WonderTradeDataAccessInterface wonderTradeDataAccessObject;
         wonderTradeDataAccessObject = new TradingCardGameDAO();

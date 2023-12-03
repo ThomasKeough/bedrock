@@ -64,7 +64,7 @@ public class DecksView extends JPanel implements PropertyChangeListener {
         scrollPane = new JScrollPane(deckJList);
         scrollPane.setPreferredSize(new Dimension(800, 600));
 
-        JPanel buttons = new JPanel();
+        JPanel buttons = new JPanel(new FlowLayout());
 
         edit = new JButton(decksViewModel.EDIT_DECK_BUTTON_LABEL);
         edit.setEnabled(false);
@@ -84,8 +84,8 @@ public class DecksView extends JPanel implements PropertyChangeListener {
         back = new JButton(decksViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
 
-        this.setLayout(new BorderLayout());
-        this.add(scrollPane, BorderLayout.WEST);
+        this.setLayout(new FlowLayout());
+        this.add(scrollPane);
         this.add(buttons);
 
         back.addActionListener(
