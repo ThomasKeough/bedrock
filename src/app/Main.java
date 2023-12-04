@@ -88,8 +88,6 @@ public class Main {
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
 
-        PlayerDAO.savePlayer(player);
-
         // Title Bar Icon
         try {
             Image pokeballIcon = ImageIO.read(new File("images/pokeball_icon.png"));
@@ -127,8 +125,8 @@ public class Main {
 
         HashMap<String, Deck> decks = new HashMap<String, Deck>();
 
-        Player player = new CommonPlayer("Example", deck, collection, decks);
-        player.addDeck("test deck", deck);
+        Player player = new CommonPlayer("Bedrock", deck, collection, decks);
+        player.addDeck("Awesome Deck", deck);
 
         return player;
     }

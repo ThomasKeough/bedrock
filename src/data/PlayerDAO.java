@@ -6,6 +6,7 @@ import view.Observer;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerDAO {
     private static final String CSV_FILE_PATH = "./player_data.csv";
@@ -33,16 +34,14 @@ public class PlayerDAO {
             }
             writer.println("COLLECTION_END");
 
-            // Save the player's decks
-            writer.println("DECKS_START");
-            for (Deck deck : player.getDecks().values()) {
-                writer.println(deck.getDeckName());
+            // Save the player's current deck
+            writer.println("DECK_START");
+            Deck currentDeck = player.getCurrentDeck();
                 // Write other deck attributes...
-                for (Card card : deck.getCards()) {
-                    writer.println(card.getId());
-                }
+            for (Card card : currentDeck.getCards()) {
+                writer.println(card.getId());
             }
-            writer.println("DECKS_END");
+            writer.println("DECK_END");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,36 +60,44 @@ public class PlayerDAO {
             String cardName;
 
             // Skip to the start of the collection
-            while (!reader.readLine().equals("COLLECTION_START")) {}
+            String line;
+            while ((line = reader.readLine()) != null && !line.equals("COLLECTION_START")) {
+            }
 
-            while (!(cardId = reader.readLine()).equals("COLLECTION_END") && (cardName = reader.readLine()) != null) {
+            while ((cardId = reader.readLine()) != null && !cardId.equals("COLLECTION_END") && (cardName = reader.readLine()) != null) {
                 Card card = factory.create(cardId, cardName);
                 cards.add(card);
             }
             Collection collection = new CommonCollection(cards);
 
-            // Load the player's decks from collection
-            HashMap<String, Deck> decks = new HashMap<>();
-            String deckName;
-
             // Skip to the start of the decks
-            while (!reader.readLine().equals("DECKS_START")) {}
-
-            while ((deckName = reader.readLine()) != null && !deckName.equals("DECKS_END")) {
-                ArrayList<Card> deckCards = new ArrayList<>();
-                String cardIdInDeck;
-                while ((cardIdInDeck = reader.readLine()) != null && !cardIdInDeck.equals("DECK_END")) {
-                    deckCards.add(collection.getCard(cardIdInDeck));
-                }
-
-                Deck deck = new CommonDeck(deckName, deckCards.get(0), deckCards.get(1), deckCards.get(2),
-                        deckCards.get(3), deckCards.get(4), deckCards.get(5));
-                decks.put(deckName, deck);
+            while ((line = reader.readLine()) != null && !line.equals("DECK_START")) {
             }
 
+            // prepare to get currentDeck
+            ArrayList<Card> deckCards = new ArrayList<Card>();
+            String deckCardID;
+            Deck current_deck = null;
+
+            while ((line = reader.readLine()) != null && !line.equals("DECK_END")) {
+                deckCardID = line;
+                while (deckCardID != null && !deckCardID.equals("DECK_END")) {
+                    Card card = collection.getCard(deckCardID);
+                    deckCards.add(card);
+                    deckCardID = reader.readLine();
+                }
+            }
+
+            current_deck = new CommonDeck(currentDeckName, deckCards.get(0), deckCards.get(1), deckCards.get(2),
+                    deckCards.get(3), deckCards.get(4), deckCards.get(5));
+
+            HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
             // Create and return the player
-            Player player = new CommonPlayer(playerName, decks.get(currentDeckName), collection, decks);
+            Player player = new CommonPlayer(playerName, current_deck, collection, decks);
+            player.addDeck(currentDeckName, current_deck);
             return player;
+
         }
         catch (IOException e)
         {
@@ -99,6 +106,7 @@ public class PlayerDAO {
 
         return null;
     }
+
 
 
 }
