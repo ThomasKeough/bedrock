@@ -2,6 +2,7 @@ package app;
 
 import data.CardDAO;
 import data.TradingCardGameDAO;
+import data.PlayerDAO;
 import entities.*;
 import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
@@ -27,7 +28,16 @@ public class Main {
     public static void main(String[] args) {
         TradingCardGameDAO.fetch_and_write_data();
 
-        player = createExamplePlayer();
+        if (PlayerDAO.playerDataExists()){
+            System.out.println("Existing player data found!");
+            player = PlayerDAO.loadPlayer();
+        }
+        else{
+            System.out.println("Welcome New Player!");
+            player = createExamplePlayer();
+            PlayerDAO.savePlayer(player);
+
+        }
 
         JFrame application = new JFrame("Pokémon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -48,7 +58,7 @@ public class Main {
 
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
         BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
-      
+
         CardDAO userDataAccessObject;
         try {
             userDataAccessObject = new CardDAO("./cards.csv", new CommonCardFactory());
@@ -77,6 +87,8 @@ public class Main {
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();
+
+        PlayerDAO.savePlayer(player);
 
         // Title Bar Icon
         try {
@@ -110,12 +122,12 @@ public class Main {
         cards.add(six);
 
         Collection collection = new CommonCollection();
-        collection.initializeCollection(false);
+        collection.initializeCollection(true);
         Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
 
         HashMap<String, Deck> decks = new HashMap<String, Deck>();
 
-        Player player = new CommonPlayer("Tester", deck, collection, decks);
+        Player player = new CommonPlayer("Example", deck, collection, decks);
         player.addDeck("test deck", deck);
 
         return player;

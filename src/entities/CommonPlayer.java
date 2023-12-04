@@ -1,6 +1,9 @@
 package entities;
-
+import data.PlayerDAO;
+import view.Observer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommonPlayer implements Player {
@@ -9,6 +12,8 @@ public class CommonPlayer implements Player {
     private final Deck currentDeck;
     private Collection collection;
     private final HashMap<String, Deck> playerDecks;
+
+    private Observer watch;
 
     public CommonPlayer(String name, Deck currentDeck, Collection collection, HashMap<String, Deck> playerDecks) {
         this.name = name;
@@ -54,4 +59,10 @@ public class CommonPlayer implements Player {
         // If the loop completes without finding the deck, it wasn't in the map
         return false;
     }
+
+    @Override
+    public void notifyObservers() {
+        PlayerDAO.update(this);
+    }
+
 }

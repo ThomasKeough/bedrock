@@ -1,4 +1,6 @@
 package entities;
+import view.Observer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,4 +18,6 @@ public interface Player {
     void addDeck(String name, Deck deck);
 
     boolean removeDeck(Deck deckToRemove);
+
+    void notifyObservers();
 }

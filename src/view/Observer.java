@@ -2,7 +2,9 @@ package view;
 
 import entities.Card;
 import entities.Collection;
+import entities.Player;
 
 public interface Observer {
-    void update(int index, Card card);
+
+
 }

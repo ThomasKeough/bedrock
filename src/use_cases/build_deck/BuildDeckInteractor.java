@@ -18,6 +18,7 @@ public class BuildDeckInteractor implements BuildDeckInputBoundary {
                 buildDeckinputData.getFour(), buildDeckinputData.getFive(), buildDeckinputData.getSix());
         Player player = buildDeckinputData.getPlayer();
         player.addDeck(deckName, deck);
+        player.notifyObservers();
 
         // TODO: Implement Fail View Case
         BuildDeckOutputData buildDeckOutputData = new BuildDeckOutputData(deck, deckName,true);
