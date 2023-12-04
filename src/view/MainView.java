@@ -18,7 +18,6 @@ public class MainView extends JPanel {
     private final MainViewModel mainViewModel;
     private ViewManagerModel viewManagerModel;
     final JLabel pokemonLogoLabel;
-    final JPanel logoPanel;
     final JButton start;
     final ImageIcon backgroundIcon;
     final JLabel backgroundLabel;
@@ -26,11 +25,6 @@ public class MainView extends JPanel {
     public MainView(MainViewModel mainViewModel, ViewManagerModel viewManagerModel) {
         this.mainViewModel = mainViewModel;
         this.viewManagerModel = viewManagerModel;
-
-        // Pokemon Logo
-        pokemonLogoLabel = new JLabel();
-        logoPanel = new JPanel();
-        logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.PAGE_AXIS));
 
         // Start Button
         start = new JButton(mainViewModel.START_BUTTON_LABEL);
@@ -40,17 +34,18 @@ public class MainView extends JPanel {
         // Loading images
         try {
             // Pokemon Logo
+            pokemonLogoLabel = new JLabel();
             ImageIcon pokemonLogo = resizeIcon(createImageIcon("images/pokemon_logo.png"), 0.25);
             pokemonLogoLabel.setIcon(pokemonLogo);
 
-            backgroundIcon = resizeIcon(createImageIcon("images/main_bg.png"), 1280, 720);
+            backgroundIcon = resizeIcon(createImageIcon("images/main_bg.jpg"), 1280, 720);
         } catch (Exception e) {
             throw new RuntimeException("Error loading image: " + e.getMessage());
         }
 
         backgroundLabel = new JLabel(backgroundIcon);
 
-        backgroundLabel.setLayout(new BorderLayout());
+        backgroundLabel.setLayout(new OverlayLayout(backgroundLabel));
         this.add(backgroundLabel, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();

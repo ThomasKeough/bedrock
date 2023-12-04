@@ -12,6 +12,7 @@ public class DecksViewModel extends ViewModel {
     public final String CREATE_NEW_DECK_BUTTON_LABEL = "Create New Deck";
     public final String DELETE_DECK_BUTTON_LABEL = "Delete Deck";
     public final String DISPLAY_DECK_BUTTON_LABEL = "Display Deck";
+    public final String RENAME_DECK_BUTTON_LABEL = "Rename Deck";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public DecksViewModel() {
