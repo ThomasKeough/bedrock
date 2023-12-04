@@ -37,7 +37,6 @@ public class PlayerDAO {
             // Save the player's current deck
             writer.println("DECK_START");
             Deck currentDeck = player.getCurrentDeck();
-                // Write other deck attributes...
             for (Card card : currentDeck.getCards()) {
                 writer.println(card.getId());
             }
@@ -105,6 +104,36 @@ public class PlayerDAO {
         }
 
         return null;
+    }
+
+    public static Player createExamplePlayer() {
+        Collection collection = new CommonCollection();
+        collection.initializeCollection(true);
+
+        CommonCardFactory commonCardFactory = new CommonCardFactory();
+        Card one = commonCardFactory.create("sv3pt5-202", "Zapdos ex");
+        Card two = commonCardFactory.create("sv3pt5-179", "Mr. Mime");
+        Card three = commonCardFactory.create("sv3pt5-176", "Poliwhirl");
+        Card four = commonCardFactory.create("sv3pt5-193", "Mew ex");
+        Card five = commonCardFactory.create("sv3pt5-131", "Lapras");
+        Card six = commonCardFactory.create("sv3pt5-143", "Snorlax");
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(one);
+        cards.add(two);
+        cards.add(three);
+        cards.add(four);
+        cards.add(five);
+        cards.add(six);
+
+        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
+
+        HashMap<String, Deck> decks = new HashMap<String, Deck>();
+
+        Player player = new CommonPlayer("Bedrock", deck, collection, decks);
+        player.addDeck("Awesome Deck", deck);
+
+        return player;
     }
 
 
