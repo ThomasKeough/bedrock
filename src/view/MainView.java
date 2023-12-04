@@ -7,7 +7,6 @@ import interface_adapters.MainViewModel;
 import interface_adapters.ViewManagerModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,19 +47,50 @@ public class MainView extends JPanel {
         }
 
         backgroundLabel = new JLabel(backgroundIcon);
+        backgroundLabel.setLayout(new GridBagLayout());
+        this.setLayout(new GridBagLayout());
+        this.add(backgroundLabel);
 
-        backgroundLabel.setLayout(new OverlayLayout(backgroundLabel));
-        this.add(backgroundLabel, BorderLayout.CENTER);
-
+        // Create a panel to hold the logo and start button
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridBagLayout());
 
-        panel.add(Box.createRigidArea(new Dimension(0, 115)));
-        panel.add(pokemonLogoLabel);
-        panel.add(start);
+        // Add Pokemon logo
+        GridBagConstraints logoConstraints = new GridBagConstraints();
+        logoConstraints.gridx = 0;
+        logoConstraints.gridy = 0;
+        logoConstraints.weightx = 1;
+        logoConstraints.weighty = 0.1;  // Adjust this value to move the logo more up
+        logoConstraints.anchor = GridBagConstraints.CENTER;
+        panel.add(pokemonLogoLabel, logoConstraints);
+
+        // Add space between logo and button
+        GridBagConstraints spaceConstraints = new GridBagConstraints();
+        spaceConstraints.gridx = 0;
+        spaceConstraints.gridy = 1;
+        spaceConstraints.weighty = 0.01;  // Adjust this value to control the space between the logo and the button
+        panel.add(Box.createRigidArea(new Dimension(0, 20)), spaceConstraints);
+
+        // Add Start button
+        GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.gridx = 0;
+        buttonConstraints.gridy = 2;
+        buttonConstraints.weighty = 0.2;  // Adjust this value to move the button more up
+        buttonConstraints.anchor = GridBagConstraints.CENTER;
+        panel.add(start, buttonConstraints);
+
+        // Make the panel transparent
         panel.setOpaque(false);
 
-        backgroundLabel.add(panel, BorderLayout.CENTER);
+        // Center the panel both vertically and horizontally
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        backgroundLabel.add(panel, gbc);
 
         start.addActionListener(
                 new ActionListener() {
