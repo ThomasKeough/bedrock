@@ -5,13 +5,7 @@ import data.TradingCardGameDAO;
 import data.PlayerDAO;
 import entities.*;
 import interface_adapters.*;
-//import interface_adapters.add_to_collection.AddToCollectionViewModel;
-//import interface_adapters.build_card.BuildCardViewModel;
-//import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.game.GameViewModel;
-import interface_adapters.wonder_trade.WonderTradeController;
-import interface_adapters.wonder_trade.WonderTradeViewModel;
-import use_cases.wonder_trade.WonderTradeInputBoundary;
 import interface_adapters.build_deck.BuildDeckViewModel;
 import interface_adapters.delete_deck.DeleteDeckViewModel;
 import view.*;
@@ -21,8 +15,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
     public static Player player;

@@ -1,5 +1,7 @@
 package view;
 
+import app.Main;
+import entities.Card;
 import interface_adapters.HubViewModel;
 import interface_adapters.MainViewModel;
 import interface_adapters.ViewManagerModel;
@@ -8,7 +10,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;;
+import java.awt.event.ActionListener;
+import java.util.List;;
 
 import static view.ImageIconCreator.createImageIcon;
 import static view.ImageResizer.resizeIcon;
@@ -25,6 +28,7 @@ public class MainView extends JPanel {
     public MainView(MainViewModel mainViewModel, ViewManagerModel viewManagerModel) {
         this.mainViewModel = mainViewModel;
         this.viewManagerModel = viewManagerModel;
+
 
         // Start Button
         start = new JButton(mainViewModel.START_BUTTON_LABEL);
