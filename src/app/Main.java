@@ -64,7 +64,7 @@ public class Main {
         HubView hubView = new HubView(hubViewModel, viewManagerModel);
         views.add(hubView, hubView.viewName);
 
-        PlayView playView = new PlayView(playViewModel, viewManagerModel);
+        PlayView playView = new PlayView(playViewModel, buildDeckViewModel, viewManagerModel);
         views.add(playView, playView.viewName);
 
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);

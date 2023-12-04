@@ -16,4 +16,6 @@ public interface Player {
     void addDeck(String name, Deck deck);
 
     boolean removeDeck(Deck deckToRemove);
+
+    void setCurrentDeck(Deck deck);
 }
