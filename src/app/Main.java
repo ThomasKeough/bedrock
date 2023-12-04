@@ -30,8 +30,7 @@ public class Main {
 
         if (PlayerDAO.playerDataExists()){
             System.out.println("Existing player data found!");
-//            player = PlayerDAO.loadPlayer();
-            player = PlayerDAO.createExamplePlayer();
+            player = PlayerDAO.loadPlayer();
         }
         else{
             System.out.println("Welcome New Player!");
