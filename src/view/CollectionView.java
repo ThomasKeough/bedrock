@@ -114,7 +114,8 @@ public class CollectionView extends JPanel{
                                     int old_index = updatedState.getIndex();
 
                                     // back end first
-                                    Main.player.getCollection().replace_card(old_index, returnedCard);
+                                    Main.player.getCollection().replaceCard(old_index, returnedCard);
+                                    Main.player.notifyObservers();
 
                                     // update the collection in ViewManagerModel
                                     viewManagerModel.updateCollection(card_index, returnedCard);

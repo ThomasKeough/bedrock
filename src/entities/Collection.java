@@ -3,7 +3,9 @@ package entities;
 import java.util.ArrayList;
 
 public interface Collection {
-    void replace_card(int card_index, Card replacement_card);
+    void replaceCard(int card_index, Card replacement_card);
+
+    Card getCard(String cardID);
 
     ArrayList<Card> getCards();
     Integer getLimit();
