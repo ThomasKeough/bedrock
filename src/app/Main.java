@@ -2,6 +2,7 @@ package app;
 
 import data.CardDAO;
 import data.TradingCardGameDAO;
+import data.PlayerDAO;
 import entities.*;
 import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
@@ -28,7 +29,16 @@ public class Main {
     public static void main(String[] args) {
         TradingCardGameDAO.fetch_and_write_data();
 
-        player = createExamplePlayer();
+        if (PlayerDAO.playerDataExists()){
+            System.out.println("Existing player data found!");
+            player = PlayerDAO.loadPlayer();
+        }
+        else{
+            System.out.println("Welcome New Player!");
+            player = PlayerDAO.createExamplePlayer();
+            PlayerDAO.savePlayer(player);
+
+        }
 
         JFrame application = new JFrame("Pokémon");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -50,7 +60,7 @@ public class Main {
 
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
         BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
-      
+
         CardDAO userDataAccessObject;
         try {
             userDataAccessObject = new CardDAO("./cards.csv", new CommonCardFactory());
@@ -95,34 +105,5 @@ public class Main {
         application.setSize(1280, 720);
         application.setLocationRelativeTo(null);
         application.setVisible(true);
-    }
-
-    public static Player createExamplePlayer() {
-        CommonCardFactory commonCardFactory = new CommonCardFactory();
-        Card one = commonCardFactory.create("sv3pt5-202", "Zapdos ex");
-        Card two = commonCardFactory.create("sv3pt5-179", "Mr. Mime");
-        Card three = commonCardFactory.create("sv3pt5-176", "Poliwhirl");
-        Card four = commonCardFactory.create("sv3pt5-193", "Mew ex");
-        Card five = commonCardFactory.create("sv3pt5-131", "Lapras");
-        Card six = commonCardFactory.create("sv3pt5-143", "Snorlax");
-
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(one);
-        cards.add(two);
-        cards.add(three);
-        cards.add(four);
-        cards.add(five);
-        cards.add(six);
-
-        Collection collection = new CommonCollection();
-        collection.initializeCollection(false);
-        Deck deck = new CommonDeck("Awesome Deck", one, two, three, four, five, six);
-
-        HashMap<String, Deck> decks = new HashMap<String, Deck>();
-
-        Player player = new CommonPlayer("Tester", deck, collection, decks);
-        player.addDeck("test deck", deck);
-
-        return player;
     }
 }

@@ -19,6 +19,10 @@ public class CommonCollection implements Collection {
         limit = i;
     }
 
+    public CommonCollection(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+
     public CommonCollection() {
         this.cards = new ArrayList<>();
     }
@@ -74,7 +78,7 @@ public class CommonCollection implements Collection {
     }
 
     @Override
-    public void replace_card(int card_index, Card replacement_card)
+    public void replaceCard(int card_index, Card replacement_card)
     {
         // Replace the card at the specified index with the replacement card
         cards.set(card_index, replacement_card);
@@ -83,6 +87,18 @@ public class CommonCollection implements Collection {
 
     public ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public Card getCard(String cardID){
+        for (int i = 0; i < cards.size(); i++)
+        {
+            if (cards.get(i).getId() == cardID)
+            {
+                return cards.get(i);
+            }
+        }
+
+        return null;
     }
 
     public Integer getLimit() {

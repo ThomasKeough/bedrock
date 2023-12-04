@@ -17,6 +17,7 @@ public class DeleteDeckInteractor implements DeleteDeckInputBoundary {
         if (player.removeDeck(deckToRemove)) {
             // Successfully removed
             DeleteDeckOutputData outputData = new DeleteDeckOutputData(deckToRemove);
+            player.notifyObservers();
             deleteDeckPresenter.prepareSuccessView(outputData);
         } else {
             deleteDeckPresenter.prepareFailView("Failed to Delete Deck");

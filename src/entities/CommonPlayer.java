@@ -1,6 +1,9 @@
 package entities;
-
+import data.PlayerDAO;
+import view.Observer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommonPlayer implements Player {
@@ -9,6 +12,8 @@ public class CommonPlayer implements Player {
     private Deck currentDeck;
     private Collection collection;
     private final HashMap<String, Deck> playerDecks;
+
+    private Observer watch;
 
     public CommonPlayer(String name, Deck currentDeck, Collection collection, HashMap<String, Deck> playerDecks) {
         this.name = name;
@@ -64,6 +69,9 @@ public class CommonPlayer implements Player {
     }
 
     @Override
+    public void notifyObservers() {
+        PlayerDAO.update(this);
+    }
     public void setCurrentDeck(Deck deck) {
         if (playerDecks.containsValue(deck)) {
             this.currentDeck = deck;
