@@ -1,5 +1,7 @@
 package entities;
 
+import static org.junit.Assert.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,4 +78,3 @@ class GameCardTest {
         gameCard.swap();
         assertFalse(gameCard.isOnField());
     }
-}

@@ -1,6 +1,7 @@
 package interface_adapters;
 
 import interface_adapters.wonder_trade.WonderTradeState;
+import view.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

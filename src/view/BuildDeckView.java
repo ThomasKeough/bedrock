@@ -4,7 +4,8 @@ import app.Main;
 import entities.Card;
 import entities.Collection;
 import interface_adapters.ViewManagerModel;
-import interface_adapters.ViewModel;
+import view.ViewModel;
+
 import interface_adapters.build_deck.BuildDeckController;
 import interface_adapters.build_deck.BuildDeckState;
 import interface_adapters.build_deck.BuildDeckViewModel;

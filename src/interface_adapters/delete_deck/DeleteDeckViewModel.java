@@ -1,6 +1,7 @@
 package interface_adapters.delete_deck;
 
-import interface_adapters.ViewModel;
+
+import view.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
