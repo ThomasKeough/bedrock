@@ -40,7 +40,7 @@ public class GameUseCaseFactory {
         GameDataAccessInterface gameDataAccessObject = new TradingCardGameDAO();
 
         GameOutputBoundary gameOutputBoundary = new GamePresenter(viewManagerModel, winViewModel, gameViewModel);
-        AttackOutputBoundary attackOutputBoundary = new AttackPresenter();
+        AttackOutputBoundary attackOutputBoundary = new AttackPresenter(gameViewModel);
 
         AttackInputBoundary attackInteractor = new AttackInteractor(attackOutputBoundary);
 
