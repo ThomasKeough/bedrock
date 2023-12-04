@@ -22,7 +22,7 @@ public class TradingCardGameDAO implements WonderTradeDataAccessInterface, GameD
     // the current set being used for the game, our default is sv3pt5, but feel free to change to any eligible set name
     private static String setID = "sv3pt5";
     private final String API_URL = "https://api.pokemontcg.io/";
-    private final String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
+    private final String API_TOKEN = "b8c12ed7-7f27-426d-9253-9ead36052b81";
 
     public static void fetch_and_write_data() {
         try{
