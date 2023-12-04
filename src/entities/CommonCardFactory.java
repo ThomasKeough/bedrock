@@ -21,7 +21,7 @@ public class CommonCardFactory implements CardFactory {
 
     public JSONObject getCardFromAPI(String id) {
         String API_URL = "https://api.pokemontcg.io/";
-        String API_TOKEN = "d21c262a-936b-4dfb-bc81-36e05d8c8ce7";
+        String API_TOKEN = "b8c12ed7-7f27-426d-9253-9ead36052b81";
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

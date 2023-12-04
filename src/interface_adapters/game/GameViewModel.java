@@ -9,7 +9,8 @@ public class GameViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Game View";
 //    public final String SWAP_BUTTON_LABEL = "Swap Cards";
-    public final String ATTACK_BUTTON_LABEL = "Attacks";
+    public final String ATTACK_BUTTON_LABEL = "Attack";
+    public final String BACK_BUTTON_LABEL = "Back to Play Hub";
 
     private GameState state = new GameState();
 
