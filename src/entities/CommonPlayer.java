@@ -9,7 +9,7 @@ import java.util.Map;
 public class CommonPlayer implements Player {
 
     private final String name;
-    private final Deck currentDeck;
+    private Deck currentDeck;
     private Collection collection;
     private final HashMap<String, Deck> playerDecks;
 
@@ -20,6 +20,14 @@ public class CommonPlayer implements Player {
         this.currentDeck = currentDeck;
         this.collection = collection;
         this.playerDecks = playerDecks;
+    }
+
+    // SAMPLE CONSTRUCTOR FOR GAMEINTERACTORTESTS
+    public CommonPlayer(String name, Deck currentDeck) {
+        this.name = name;
+        this.currentDeck = currentDeck;
+        this.playerDecks = new HashMap<String, Deck>();
+        this.playerDecks.put("Sample", currentDeck);
     }
 
     @Override
@@ -64,5 +72,11 @@ public class CommonPlayer implements Player {
     public void notifyObservers() {
         PlayerDAO.update(this);
     }
-
+    public void setCurrentDeck(Deck deck) {
+        if (playerDecks.containsValue(deck)) {
+            this.currentDeck = deck;
+        } else {
+            System.out.println("Player doesn't have specified deck!");
+        }
+    }
 }

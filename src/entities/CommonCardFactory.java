@@ -51,6 +51,7 @@ public class CommonCardFactory implements CardFactory {
         String cardType = card.getJSONArray("types").getString(0); // ex: ["Metal"]
 
         HashMap<String, Integer> cardWeaknesses = new HashMap<>();
+
         if (card.has("weaknesses")) {
             JSONObject cardWeaknessesObj = card.getJSONArray("weaknesses").getJSONObject(0);
             String weaknessValue = cardWeaknessesObj.getString("value");

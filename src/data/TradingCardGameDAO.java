@@ -7,13 +7,14 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_cases.game.GameDataAccessInterface;
 import use_cases.wonder_trade.WonderTradeDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
 
-public class TradingCardGameDAO implements WonderTradeDataAccessInterface {
+public class TradingCardGameDAO implements WonderTradeDataAccessInterface, GameDataAccessInterface {
 
     // Specify the CSV file path
     public static File csvFile = new File("circulating_pokemon_cards.csv");

@@ -8,6 +8,7 @@ import interface_adapters.*;
 //import interface_adapters.add_to_collection.AddToCollectionViewModel;
 //import interface_adapters.build_card.BuildCardViewModel;
 //import interface_adapters.build_deck.BuildDeckViewModel;
+import interface_adapters.game.GameViewModel;
 import interface_adapters.wonder_trade.WonderTradeController;
 import interface_adapters.wonder_trade.WonderTradeViewModel;
 import use_cases.wonder_trade.WonderTradeInputBoundary;
@@ -55,6 +56,7 @@ public class Main {
         PlayViewModel playViewModel = new PlayViewModel();
         CollectionViewModel collectionViewModel = new CollectionViewModel();
         DecksViewModel decksViewModel = new DecksViewModel();
+        GameViewModel gameViewModel = new GameViewModel();
 
         DeleteDeckViewModel deleteDeckViewModel = new DeleteDeckViewModel();
         BuildDeckViewModel buildDeckViewModel = new BuildDeckViewModel();
@@ -72,7 +74,7 @@ public class Main {
         HubView hubView = new HubView(hubViewModel, viewManagerModel);
         views.add(hubView, hubView.viewName);
 
-        PlayView playView = new PlayView(playViewModel, viewManagerModel);
+        PlayView playView = new PlayView(playViewModel, buildDeckViewModel, viewManagerModel);
         views.add(playView, playView.viewName);
 
         CollectionView collectionView = new CollectionView(collectionViewModel, viewManagerModel);
@@ -84,6 +86,9 @@ public class Main {
 
         BuildDeckView buildDeckView = BuildDeckUseCaseFactory.create(viewManagerModel, buildDeckViewModel);
         views.add(buildDeckView, buildDeckView.viewName);
+
+        GameView gameView = new GameView(gameViewModel, viewManagerModel);
+        views.add(gameView, gameView.viewName);
 
         viewManagerModel.setActiveView(mainView.viewName);
         viewManagerModel.firePropertyChanged();

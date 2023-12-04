@@ -44,16 +44,14 @@ public class GameCard implements GamePokemon {
 
     public boolean isOnField() {
         return onField;
-    }
-
-    public void faint() {
-        if (this.getHP() <= 0) {
-            this.fainted = true;
-        }
-    }
+    } // only 1 can be on the field at the same time
 
     public void takeDamage(Integer damage) {
         this.setHP(this.getHP() - damage);
+        if (this.getHP() <= 0) {
+            this.fainted = true;
+        }
+
     }
 
     public void swap() {

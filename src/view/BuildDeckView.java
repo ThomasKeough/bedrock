@@ -4,7 +4,8 @@ import app.Main;
 import entities.Card;
 import entities.Collection;
 import interface_adapters.ViewManagerModel;
-import interface_adapters.ViewModel;
+import view.ViewModel;
+
 import interface_adapters.build_deck.BuildDeckController;
 import interface_adapters.build_deck.BuildDeckState;
 import interface_adapters.build_deck.BuildDeckViewModel;
@@ -181,6 +182,7 @@ public class BuildDeckView extends JPanel implements PropertyChangeListener {
                         if (!e.getValueIsAdjusting()) {
                             // The user has finished making a selection
                             selectedCard = cardJList.getSelectedValue();
+                            displayCard.setEnabled(true);
 
                             if (!selectedCards.contains(selectedCard) && selectedCards.size() < 6) {
                                 addCard.setEnabled(true);
@@ -214,6 +216,7 @@ public class BuildDeckView extends JPanel implements PropertyChangeListener {
         addCard.setEnabled(false);
         removeCard.setEnabled(false);
         buildDeck.setEnabled(false);
+        displayCard.setEnabled(false);
         highlightedRows.clear();
         selectedCards.clear();
     }

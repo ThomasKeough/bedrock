@@ -20,4 +20,6 @@ public interface Player {
     boolean removeDeck(Deck deckToRemove);
 
     void notifyObservers();
+  
+    void setCurrentDeck(Deck deck);
 }
