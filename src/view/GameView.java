@@ -43,10 +43,10 @@ public class GameView extends JPanel {
         this.viewManagerModel = viewManagerModel;
 
         this.cards = Main.player.getCurrentDeck().getCards();
-        Collection opponentCollection = new CommonCollection(6);
-        opponentCollection.initializeCollection(true);
+        Collection opponentDeck = new CommonCollection(6);
+        opponentDeck.initializeCollection(true);
 
-        List<Card> opponentCards = opponentCollection.getCards();
+        List<Card> opponentCards = opponentDeck.getCards();
 
         Card selectedCard = cards.get(0);
         Card opponentCard = opponentCards.get(0); // Assuming the opponent's card is the second card in the list
@@ -105,6 +105,7 @@ public class GameView extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(back)) {
+                            System.out.println("THIS BUTTON IS BEING PRESSED");
                             // Set activeView to HubView
                             viewManagerModel.setActiveView("Hub View");
                         }
