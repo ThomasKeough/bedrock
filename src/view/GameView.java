@@ -2,6 +2,8 @@ package view;
 
 import app.Main;
 import entities.Card;
+import entities.Collection;
+import entities.CommonCollection;
 import entities.Player;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.game.GameState;
@@ -40,10 +42,14 @@ public class GameView extends JPanel {
         this.gameViewModel = gameViewModel;
         this.viewManagerModel = viewManagerModel;
 
-        this.cards = Main.player.getCollection().getCards();
+        this.cards = Main.player.getCurrentDeck().getCards();
+        Collection opponentCollection = new CommonCollection(6);
+        opponentCollection.initializeCollection(true);
+
+        List<Card> opponentCards = opponentCollection.getCards();
 
         Card selectedCard = cards.get(0);
-        Card opponentCard = cards.get(1); // Assuming the opponent's card is the second card in the list
+        Card opponentCard = opponentCards.get(0); // Assuming the opponent's card is the second card in the list
 
         JLabel title = new JLabel(gameViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
